@@ -1,0 +1,79 @@
+#!/bin/tcsh
+
+# ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# set subject lists
+set part_file = participants.short.tsv
+set subs_control = ( `awk '/CONTROL/ {print $1}' QC/$part_file` )
+set subs_bipolar = ( `awk '/BIPOLAR/ {print $1}' QC/$part_file` )
+set subs_drop = ( `cat QC/outliers.c.drop.subs.txt` )
+
+# if there are subjects to drop, include such an option
+if ( $#subs_drop > 0 ) then
+   set drop_opt = ( -dset_sid_omit_list $subs_drop )
+else
+   set drop_opt = ( )
+endif
+
+# ----------------------------------------------------------------------
+# related datasets
+set template = MNI152_2009_template_SSW.nii.gz
+set mask = group_mask.7+tlrc
+
+setenv OMP_NUM_THREADS 2
+
+# name this result group_analysis.9
+set tindex = 9
+
+
+# ======================================================================
+# test-specific variables for bipolar:task-control (paired)
+
+# this test uses both groups, but just the TASK condition
+set beta1     = "TASK#0_Coef"
+set beta2     = "CONTROL#0_Coef"
+
+set setlab    = ( task control )
+
+# implied variables
+set label = g_bipolar.paired.T-C
+set gdir  = group_analysis.$tindex.$label
+
+# ----------------------------------------------------------------------
+# check whether output directory already exists
+if ( -d $gdir ) then
+   echo "** group output directory already exists: $gdir"
+   echo "   exiting..."
+   exit 0
+endif
+
+# create output dir, copy some dsets in, generate ttest command
+# run only if directory does not exist
+mkdir -p $gdir
+\cp -p QC/$template $gdir
+3dcopy QC/$mask $gdir/
+cd $gdir
+
+set tt_script = run.tt.$tindex.$label
+
+# list ALL subject datasets, then specify which to use/drop
+gen_group_command.py -command 3dttest++                 \
+        -write_script $tt_script                        \
+        -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+        -dset_sid_list $subs_bipolar                    \
+        $drop_opt                                       \
+        -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+        -dset_sid_list $subs_bipolar                    \
+        $drop_opt                                       \
+        -subj_prefix sub-                               \
+        -set_labels $setlab                             \
+        -subs_betas "$beta1" "$beta2"                   \
+        -verb 2                                         \
+        -options -paired                                \
+        |& tee out.ggc
+
+tcsh -x $tt_script |& tee out.$tt_script
+
+

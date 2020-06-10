@@ -1,0 +1,11 @@
+22 Oct 2019 [discoraj]: added Cluster Explorer Demo
+29 May 2019 [rickr]: AFNI_pamenc updates to global_*.txt
+29 Apr 2019 [rickr]: AFNI_pamenc command newline
+22 Apr 2019 [rickr]: added AFNI_pamenc
+17 Mar 2019 [discoraj]: added FATCAT_matplot_DEMO
+15 Mar 2019 [pault]: added Do_00_PRESTO_ALL_RUNS.tcsh, etc
+30 Dec 2016 [pault]: remove rank from FATCAT_DEMO, FAT_MVM_DEMO
+26 Sep 2014 [ziad] : added Do_11 to FATCAT_DEMO
+22 Sep 2014 [ziad] : added AFNI_InstaCorrDemo.mini, updated FATCAT_DEMO
+19 Sep 2014 [rickr]: added AFNI_ClustScatDemo
+15 Sep 2014 [rickr]: initial version (FATCAT_DEMO, FAT_MVM_DEMO)

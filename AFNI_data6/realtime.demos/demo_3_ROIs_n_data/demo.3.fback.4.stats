@@ -1,0 +1,23 @@
+#!/usr/bin/env tcsh
+
+# check realtime_receiver.py output against 3dROIstats and raw data
+
+
+set mask      = rt.input/mask_AV_bits+orig
+set epi       = rt.output/rt.__001%reg3D+orig
+
+# raw time series for the 2 voxels in region 1 'L_aud'
+set vox_files = ( rt.input/046*.1D )
+
+
+# generate ROI averages for L_vis and R_vis (but not L_aud)"
+3dROIstats -quiet -mask $mask'<2..3>' $epi > rt.output/out.roistats.1D
+
+
+# then combine it with (already created) raw voxel time series
+set div = '--------'
+printf "%10s %10s %10s %10s\n" ROI_2 ROI_3 aud_vox1 aud_vox2
+printf "%10s %10s %10s %10s\n" $div $div $div $div
+1dcat rt.output/out.roistats.1D $vox_files        \
+      | awk '{printf "%10s %10s %10s %10s\n", $1, $2, $3, $4}'
+

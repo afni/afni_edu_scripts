@@ -1,0 +1,4 @@
+#!/bin/tcsh
+
+realtime_receiver.py -show_data yes
+

@@ -1,0 +1,3 @@
+#!/bin/tcsh
+
+Dimon -rt -no_wait -infile_pattern '../../EPI_run1/8HR*.dcm' 

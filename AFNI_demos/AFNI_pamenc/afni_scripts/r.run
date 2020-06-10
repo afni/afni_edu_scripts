@@ -1,0 +1,6 @@
+
+tcsh p.1.sswarper -swarm
+tcsh p.2.make.timing
+tcsh p.3.run.AP -swarm -redo
+tcsh p.4.qc
+tcsh p.5.ttest -verb 1 | & tee out.p.5.class

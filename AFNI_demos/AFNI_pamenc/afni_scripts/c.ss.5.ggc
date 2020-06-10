@@ -1,0 +1,316 @@
+#!/bin/tcsh
+
+# ----------------------------------------------------------------------
+# modify per command
+
+set nneeded = 3
+set use_args = "SID INDATA_ROOT OUTDATA_ROOT"
+
+set sid = "$1"
+set indata_root = "$2"
+set outdata_root = "$3"
+
+# note: INDATA_ROOT  should be original tree, including EPI
+# note: OUTDATA_ROOT should be derivatives dir, we will assume children
+
+# inputs: 
+#    AFNI_01_SSwarper   - anats: orig, SS, warped; warps
+#    Freesurfer_01_afni - masks and FS datasets
+#    main data root     - EPI
+#    AFNI_02_MGT_NL     - cur dir - timing files
+#
+# ==> let $indata_root be 'derivatives', so we don't need to pass all
+
+
+# ----------------------------------------------------------------------
+# static test
+
+if ( $#argv < $nneeded ) then
+    set script = `basename $0`
+    echo $script : need $nneeded parameters
+    echo ""
+    echo "usage: $script $use_args"
+    echo ""
+    echo "command : $argv"
+    echo ""
+    exit 1
+endif
+
+
+# ----------------------------------------------------------------------
+# set subject lists
+# set part_file = participants.short.tsv
+set part_file = participants.tsv
+set subs_control = ( `awk '/CONTROL/ {print $1}' $indata_root/$part_file` )
+set subs_bipolar = ( `awk '/BIPOLAR/ {print $1}' $indata_root/$part_file` )
+set subs_drop = ( `cat QC/outliers.c.drop.subs.txt` )
+
+# make copy of participants file under QC
+if ( ! -f QC/$part_file ) then
+   echo "-- making a copy of $part_file under QC..."
+   \cp -f $indata_root/$part_file QC
+endif
+
+# if there are subjects to drop, include such an option
+if ( $#subs_drop > 0 ) then
+   set drop_opt = ( -dset_sid_omit_list $subs_drop )
+else
+   set drop_opt = ( )
+endif
+
+# ----------------------------------------------------------------------
+# related datasets
+set template = MNI152_2009_template_SSW.nii.gz
+set mask = group_mask.7+tlrc
+
+setenv OMP_NUM_THREADS 20
+
+set tindex = 0  # init, this increments across tests
+
+# ======================================================================
+# try 5 tests: group x condition and some group comparison
+#    - control task
+#    - bipolar task
+#    - bipolar-control for task
+#    - control paired task-control
+#    - control paired task-control : Clustsim and ETAC
+# ======================================================================
+
+
+# ======================================================================
+# test-specific variables for control:task
+set setlab    = control
+set subj_list = ( $subs_control )
+set cond      = task
+set beta      = "TASK#0_Coef"
+
+# implied
+@ tindex += 1
+set label = g_$setlab.$cond
+set gdir  = group_analysis.$tindex.$label
+
+# ----------------------------------------------------------------------
+# create output dir, copy some dsets in, generate ttest command
+# run only if directory does not exist
+if ( ! -d $gdir ) then
+
+   mkdir -p $gdir
+   \cp -p QC/$template $gdir
+   3dcopy QC/$mask $gdir/
+   cd $gdir
+
+   set tt_script = run.tt.$tindex.$label
+
+   # list ALL subject datasets, then specify which to use/drop
+   gen_group_command.py -command 3dttest++                 \
+           -write_script $tt_script                        \
+           -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+           -dset_sid_list $subj_list                       \
+           $drop_opt                                       \
+           -subj_prefix sub-                               \
+           -set_labels $setlab                             \
+           -subs_betas "$beta"                             \
+           -verb 2                                         \
+           |& tee out.ggc
+
+   tcsh -x $tt_script |& tee out.$tt_script
+
+   cd -
+
+endif
+
+
+# ======================================================================
+# test-specific variables for bipolar:task
+set setlab    = bipolar
+set subj_list = ( $subs_bipolar )
+set cond      = task
+set beta      = "TASK#0_Coef"
+
+# implied
+@ tindex += 1
+set label = g_$setlab.$cond
+set gdir  = group_analysis.$tindex.$label
+
+# ----------------------------------------------------------------------
+# create output dir, copy some dsets in, generate ttest command
+# run only if directory does not exist
+if ( ! -d $gdir ) then
+
+   mkdir -p $gdir
+   \cp -p QC/$template $gdir
+   3dcopy QC/$mask $gdir/
+   cd $gdir
+
+   set tt_script = run.tt.$tindex.$label
+
+   # list ALL subject datasets, then specify which to use/drop
+   gen_group_command.py -command 3dttest++                 \
+           -write_script $tt_script                        \
+           -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+           -dset_sid_list $subj_list                       \
+           $drop_opt                                       \
+           -subj_prefix sub-                               \
+           -set_labels $setlab                             \
+           -subs_betas "$beta"                             \
+           -verb 2                                         \
+           |& tee out.ggc
+
+   tcsh -x $tt_script |& tee out.$tt_script
+
+   cd -
+
+endif
+
+
+# ======================================================================
+# test-specific variables for bipolar-control:task
+
+# this test uses both groups, but just the TASK condition
+set cond      = task
+set beta      = "TASK#0_Coef"
+
+set setlab    = ( bipolar control )
+
+# implied
+@ tindex += 1
+set label = g_B-C.$cond
+set gdir  = group_analysis.$tindex.$label
+
+# ----------------------------------------------------------------------
+# create output dir, copy some dsets in, generate ttest command
+# run only if directory does not exist
+if ( ! -d $gdir ) then
+
+   mkdir -p $gdir
+   \cp -p QC/$template $gdir
+   3dcopy QC/$mask $gdir/
+   cd $gdir
+
+   set tt_script = run.tt.$tindex.$label
+
+   # list ALL subject datasets, then specify which to use/drop
+   gen_group_command.py -command 3dttest++                 \
+           -write_script $tt_script                        \
+           -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+           -dset_sid_list $subs_bipolar                    \
+           $drop_opt                                       \
+           -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+           -dset_sid_list $subs_control                    \
+           $drop_opt                                       \
+           -subj_prefix sub-                               \
+           -set_labels $setlab                             \
+           -subs_betas "$beta"                             \
+           -verb 2                                         \
+           |& tee out.ggc
+
+   tcsh -x $tt_script |& tee out.$tt_script
+
+   cd -
+
+endif
+
+
+# ======================================================================
+# test-specific variables for control:task-control (paired)
+
+# this test uses both groups, but just the TASK condition
+set cond      = task
+set beta1     = "TASK#0_Coef"
+set beta2     = "CONTROL#0_Coef"
+
+set setlab    = ( task control )
+
+# implied
+@ tindex += 1
+set label = g_control.paired.T-C
+set gdir  = group_analysis.$tindex.$label
+
+# ----------------------------------------------------------------------
+# create output dir, copy some dsets in, generate ttest command
+# run only if directory does not exist
+if ( ! -d $gdir ) then
+
+   mkdir -p $gdir
+   \cp -p QC/$template $gdir
+   3dcopy QC/$mask $gdir/
+   cd $gdir
+
+   set tt_script = run.tt.$tindex.$label
+
+   # list ALL subject datasets, then specify which to use/drop
+   gen_group_command.py -command 3dttest++                 \
+           -write_script $tt_script                        \
+           -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+           -dset_sid_list $subs_control                    \
+           $drop_opt                                       \
+           -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+           -dset_sid_list $subs_control                    \
+           $drop_opt                                       \
+           -subj_prefix sub-                               \
+           -set_labels $setlab                             \
+           -subs_betas "$beta1" "$beta2"                   \
+           -verb 2                                         \
+           -options -paired                                \
+           |& tee out.ggc
+
+   tcsh -x $tt_script |& tee out.$tt_script
+
+   cd -
+
+endif
+
+
+# ======================================================================
+# test-specific variables for control:task-control (paired) with ETAC
+
+# this test uses both groups, but just the TASK condition
+set cond      = task
+set beta1     = "TASK#0_Coef"
+set beta2     = "CONTROL#0_Coef"
+
+set setlab    = ( task control )
+
+# implied
+@ tindex += 1
+set label = g_control.paired.T-C.ETAC
+set gdir  = group_analysis.$tindex.$label
+
+# ----------------------------------------------------------------------
+# create output dir, copy some dsets in, generate ttest command
+# run only if directory does not exist
+if ( ! -d $gdir ) then
+
+   mkdir -p $gdir
+   \cp -p QC/$template $gdir
+   3dcopy QC/$mask $gdir/
+   cd $gdir
+
+   set tt_script = run.tt.$tindex.$label
+
+   # list ALL subject datasets, then specify which to use/drop
+   gen_group_command.py -command 3dttest++                 \
+           -write_script $tt_script                        \
+           -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+           -dset_sid_list $subs_control                    \
+           $drop_opt                                       \
+           -dsets ../sub-*/*.results/stats.sub*REML+tlrc.HEAD \
+           -dset_sid_list $subs_control                    \
+           $drop_opt                                       \
+           -subj_prefix sub-                               \
+           -set_labels $setlab                             \
+           -subs_betas "$beta1" "$beta2"                   \
+           -verb 2                                         \
+           -options                                        \
+             -paired                                       \
+             -mask $mask                                   \
+             -Clustsim                                     \
+             -ETAC                                         \
+           |& tee out.ggc
+
+   tcsh -x $tt_script |& tee out.$tt_script
+
+   cd -
+
+endif
+
