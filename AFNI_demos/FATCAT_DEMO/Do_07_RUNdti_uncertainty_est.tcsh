@@ -1,5 +1,7 @@
 #!/bin/tcsh -f
 
+# ver=3.0
+
 # In preparation for doing mini- and full-probabilistic tractography,
 # the uncertainty of relevant DTI parameters (FA and e1) need to be
 # estimated. In FATCAT, this is done using jackknife resampling over a
@@ -16,8 +18,7 @@ time 3dDWUncert -echo_edu         \
     -inset AVEB0_DWI.nii.gz       \
     -prefix DTI/o.UNCERT          \
     -input DTI/DT                 \
-    -grads GRADS_30.dat           \
+    -bmatrix_FULL GRADS_bmatA.dat \
     -iters 50                     \
     -overwrite
-
 

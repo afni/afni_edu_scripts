@@ -1,9 +1,11 @@
 #!/bin/tcsh -f
 
+# ver=3.0
+
 # (I'll assume you looked at the Do_01_*dti*.tcsh file for converting
 # dcm2nii bvecs to something useful for DTI analysis.)
 
-# Here, we also use the Grad-o-Mat, but a couple extra considerations
+# Here, we also use 1dDW_Grad_o_Mat++, but a couple extra considerations
 # are necessary for the gradient info for the chosen package for HARDI
 # model reconstruction, DTI-Studio (Yeh et al., 2010).  
 
@@ -17,10 +19,9 @@
 
 # All that being noted, here we go again:
 
-1dDW_Grad_o_Mat                     \
-    -in_grad_rows 'bvec[2..32]'     \
-    -in_bvals 'bval[2..32]'         \
-    -flip_y                         \
-    -keep_b0s                       \
-    -out_bval_col                   \
-    -out_grad_cols HARDI/b_table.txt
+1dDW_Grad_o_Mat++                     \
+    -in_row_vec    bvec'[0..30]'      \
+    -in_bvals      bval'[0..30]'      \
+    -flip_y                           \
+    -out_col_vec   HARDI/b_table.txt  \
+    -out_col_bval

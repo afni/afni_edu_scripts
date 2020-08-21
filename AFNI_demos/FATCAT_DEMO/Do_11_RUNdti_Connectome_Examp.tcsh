@@ -1,13 +1,14 @@
 #!/bin/tcsh
 
+# ver=3.0
 
 # What's in a name of files.
 set FATPATH = "./"
-set UNCFILE = `ls DTI/o.UNCERT*HEAD`
+set UNCFILE = `\ls DTI/o.UNCERT*HEAD`
 set UNCFILE = "${UNCFILE[1]}"
 set ROIs    = "SUMA/aparc+aseg_REN_gm.nii.gz"
-set ltROIs = "SUMA/aparc+aseg_REN_all.niml.lt"
-set outdir = "CONNECTOMING"
+set ltROIs  = "SUMA/aparc+aseg_REN_all.niml.lt"
+set outdir  = "CONNECTOMING"
 
 echo $ltROIs
 
@@ -15,6 +16,10 @@ if ( ! -d ${outdir} ) then
     mkdir ${outdir}
 endif
 
+
+####### Note that @SUMA_Make_Spec_FS now creates a "*REN_gmrois*"
+####### dataset of just ROI-like GM automatically, so this process is
+####### simplified.
 #### select a subset of GM, here from both hemispheres
 ###printf "\n\nTake GM ROIs from the initial data set.\n\n"
 ###3dcalc -a $ROIs                                         \
@@ -24,10 +29,16 @@ endif
 
 # put the GM map into DWI space/coors
 printf "\n\nTransfer the GM ROIs to DWI space.\n\n"
-3dresample -master ${FATPATH}/AVEB0_DWI.nii.gz         \
-    -prefix ${outdir}/DWI_CONNrois_SUB.nii             \
-    -inset $ROIs                  \
+3dresample                                                \
+    -master ${FATPATH}/AVEB0_DWI.nii.gz                   \
+    -prefix ${outdir}/DWI_CONNrois_SUB.nii                \
+    -inset $ROIs                                          \
     -overwrite
+
+3drefit                                                   \
+    -copytables ${ROIs}                                   \
+    ${outdir}/DWI_CONNrois_SUB.nii
+3drefit -cmap INT_CMAP ${outdir}/DWI_CONNrois_SUB.nii
 
 # minor inflation, 1 vox 
 printf "\n\nMinorly inflate GM ROIs which are not touching WM,\n"
@@ -43,12 +54,16 @@ printf "\tas defined by the FA mask the GM ROIs to DWI space.\n\n"
 
 # copy label table to the data set
 printf "\n\nCopy label-table to the new map of targets for tracking.\n\n"
-3drefit -labeltable ${ltROIs}                             \
+3drefit                                                   \
+    -copytables ${ROIs}                                   \
     ${outdir}/DWI_CONNrois_SUB_ROI_GMI+orig
-
+3drefit -cmap INT_CMAP ${outdir}/DWI_CONNrois_SUB.nii
 
 # tracking: 1 seed per vox
-printf "\n\nBasic tracking #1: deterministic, 1 seed per voxel.\n\n"
+echo ""
+echo "Basic tracking #1: deterministic, 1 seed per voxel."
+echo "Also using the '-bundle_thr ..' opt, to NOT include bundles that"
+echo "appear to have extremely few tracts in them in the final output."
 
 time 3dTrackID -mode DET                                        \
     -netrois ${outdir}/DWI_CONNrois_SUB_ROI_GMI+orig            \
@@ -57,11 +72,10 @@ time 3dTrackID -mode DET                                        \
     -dti_in ${FATPATH}/DTI/DT                                   \
     -prefix ${outdir}/o.OME                                     \
     -dump_rois AFNI                                             \
+    -bundle_thr 5                                               \
     -no_indipair_out                                            \
     -nifti                                                      \
     -overwrite
-
-
 
 
 # tracking: 8 seeds per vox
@@ -74,6 +88,7 @@ time 3dTrackID -mode DET                                        \
     -prefix ${outdir}/o.OME8                                    \
     -dump_rois AFNI                                             \
     -no_indipair_out                                            \
+    -bundle_thr 40                                              \
     -nifti                                                      \
     -overwrite
 
@@ -84,8 +99,10 @@ cat << EOF
 
  COMMENT 1: for viewing some of the results above, you can run any of
     the the following:
+
         suma -tract CONNECTOMING/o.OME_000.niml.tract  
         suma -tract CONNECTOMING/o.OME8_000.niml.tract
+
     and then, as an additional connectomic treat, color the tracts
     distinctly by which pair of target ROIs they connect; this makes use
     of the fact that 3dTrackID outputs the connection tracts as bundles,

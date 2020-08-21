@@ -10,9 +10,9 @@
 # RSFC programs require inputs from the DTI ones), you could comment
 # some out.
 
-set all_DTI = `\ls Do_??_RUNdti*tcsh`
+set all_DTI   = `\ls Do_??_RUNdti*tcsh`
 set all_HARDI = `\ls Do_??_RUNhardi*tcsh`
-set all_RSFC = `\ls Do_??_RUNrsfc*tcsh`
+set all_RSFC  = `\ls Do_??_RUNrsfc*tcsh`
 
 # RUN-DTI programs
 foreach run ( $all_DTI )

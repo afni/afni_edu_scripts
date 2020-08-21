@@ -1,5 +1,7 @@
 #!/bin/tcsh -f
 
+# ver=3.0
+
 # Do some probabilistic tractography, using networks of ROIs derived
 # from RS-FMRI and DTI data/uncertainty.  There are a few different
 # options for outputs and things, so good to look through helpfile.
@@ -52,25 +54,42 @@
 # discussion of the '-dump_rois' option, see the 3dTrackID helpfile,
 # or the post-run reading, below.
 
-set uncfile = `ls DTI/o.UNCERT*HEAD`
+set uncfile = `\ls DTI/o.UNCERT*HEAD`
 
 time 3dTrackID -mode PROB                \
     -netrois ROI_ICMAP_GMI+orig          \
-    -uncert "${uncfile[1]}"    \
+    -uncert "${uncfile[1]}"              \
     -dti_in DTI/DT                       \
     -mask mask_DWI+orig                  \
     -algopt ALGOPTS_PROB.dat             \
+    -no_indipair_out                     \
     -dump_rois AFNI                      \
+    -nifti                               \
     -prefix DTI/o.PR                     \
     -overwrite           -echo_edu
+
+fat_proc_connec_vis                      \
+    -in_rois DTI/o.PR/NET_000_*          \
+    -prefix  DTI/o.PR_surfs              \
+    -trackid_no_or     
+
+cat <<EOF
+
+++ Consider viewing some of the probabilistic tracking output with,
+   for example, this:
+
+     suma -onestate -i DTI/o.PR_surfs/wmc*.gii -vol DTI/DT_FA+orig
+
+EOF
+
+
 
 # SOME READING FOR AFTER RUNNING:
 
 # There were four networks input, so there will be 4 sets of files
 # output.  In this case, ones associated with brik [0]:
 #          o.PR_000.grid
-#          o.PR_000_INDIMAP+orig.
-#          o.PR_000_PAIRMAP+orig.,
+#          o.PR_000.niml.tract
 #          ....
 # and so on for networks defined in the [1], [2] and [3] briks.
 
@@ -92,6 +111,32 @@ time 3dTrackID -mode PROB                \
 # (3,2) is for tracks which connected target-3 and target-2.  If there
 # were no tracks (or not enough, based on the set threshold)
 # connecting them, then the value is a 0.
+
+
+# For fun, you can compare the relative 'volumes' of outputs from DET,
+# MINIP and PROB mode, for the AND-logic connections. Even with just
+# 200 probabilistic iterations (and a pretty low treshold of having
+# just a few tracts pass through a voxel to include it in an ROI),
+# this shows some of the difference between deterministic and
+# probabilistic tractography.  Most likely, a comparison will provide
+# some evidence bit about why the latter is much preferred, both for
+# theoretical reasons, like we know that we have imperfect measures
+# and therefore imperfect tensors/parameters guiding simple
+# algorithms, and for heuristic evidence based on experience with data
+# like this.  Certainly, neither method is perfect, and it seems like
+# both might be prone to 'false negatives' -- missing out on
+# physiologically present fibers.  That is why it is probably a good
+# idea to set a pretty low threshold for keeping voxels. And also, one
+# might want to look at HARDI methods...
+
+##### ------------------- NB before reading further ---------------------
+### In ver=3.0 of the demo, *INDIMAP* and *PAIRMAP* datasets are no
+### longer output, by use of the "-no_indipair_out".  This is because
+### they really are not that useful; you are much better off using the
+### "-dump_rois .." option to get the volumetric maps of tracked WM
+### connections.  However, we leave the description of the *INDIMAP*
+### and *PAIRMAP* datasets in this file, in case your are interesting
+### in them (but, again, we don't think you should be...).
 
 # The *INDIMAP* file has N_roi+1 bricks.  Brick [0] shows voxels where
 # more tracks than the threshold value passed through for any
@@ -122,19 +167,3 @@ time 3dTrackID -mode PROB                \
 # of viewing; but probably to *use* the WM-regions for other things,
 # you will want to dump the found WM-ROIs (they go into their own
 # directory, and don't really take up that much space).
-
-# For fun, you can compare the relative 'volumes' of outputs from DET,
-# MINIP and PROB mode, for the AND-logic connections. Even with just
-# 200 probabilistic iterations (and a pretty low treshold of having
-# just a few tracts pass through a voxel to include it in an ROI),
-# this shows some of the difference between deterministic and
-# probabilistic tractography.  Most likely, a comparison will provide
-# some evidence bit about why the latter is much preferred, both for
-# theoretical reasons, like we know that we have imperfect measures
-# and therefore imperfect tensors/parameters guiding simple
-# algorithms, and for heuristic evidence based on experience with data
-# like this.  Certainly, neither method is perfect, and it seems like
-# both might be prone to 'false negatives' -- missing out on
-# physiologically present fibers.  That is why it is probably a good
-# idea to set a pretty low threshold for keeping voxels. And also, one
-# might want to look at HARDI methods...

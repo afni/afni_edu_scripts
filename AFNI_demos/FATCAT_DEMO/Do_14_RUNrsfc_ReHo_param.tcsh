@@ -1,5 +1,7 @@
 #!/bin/tcsh -f
 
+# ver=3.0
+
 # Calculate ReHo of the LFF time series-- the Kendall Coefficient of
 # Concordance (KCC, or Kendall's W) of a neighborhood of time series.
 
@@ -46,3 +48,4 @@
 
 
 
+\gzip FMRI/*BRIK

@@ -1,4 +1,4 @@
-This is version 2.2 of the AFNI FATCAT (Functional And Tractographic
+This is version 3.0 of the AFNI FATCAT (Functional And Tractographic
 Connectivity Analysis Toolbox) demo set (Taylor & Saad, 2013, in Brain
 Connectivity).
 
@@ -6,6 +6,16 @@ Connectivity).
   for post-FreeSurfer/connectomic tracking have changed.  There have
   also been a few naming changes, reflecting some changes in AFNI
   program functionality. *
+
+* In updating from v2.2 -> v3.0: some command selection was modernized
+  (1dDW_Grad_o_Mat -> 1dDW_Grad_o_Mat++); several comments were
+  updated; some option usage changed (for 3dTrackID in most cases, we
+  don't output the *INDIMAP* and *PAIRMAP* volumes, instead using the
+  better '-dump_rois ..' functionality); visualization scripts were
+  added (for suma, in a few tracking cases, as comments after
+  tracking); and other miscellaneous tweaks.  These changes were
+  mostly within the DTI and FMRI commands (HARDI side of things did
+  not really change).
 
 This demo set consists of DWI and RS-FMRI data, as well as example
 HARDI-reconstructions, some of which has been processed using AFNI,

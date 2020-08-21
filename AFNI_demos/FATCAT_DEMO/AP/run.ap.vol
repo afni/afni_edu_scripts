@@ -1,3 +1,11 @@
+#!/bin/tcsh
+
+# ver=3.0 (just added the comment at the top here)
+
+# NOTE: This example of processing is pretty old now-- please see the
+# "afni_proc.py -help" output for more examples, as well as the
+# Bootcamp example: AFNI_data6/FT_analysis/s05* and other scripts in
+# that directory.
 
 set anat = ../mprage+orig.HEAD
 set epi = ../REST.nii.gz
