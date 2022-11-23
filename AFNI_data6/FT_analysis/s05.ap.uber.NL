@@ -24,6 +24,7 @@ afni_proc.py -subj_id $subj.NL                                   \
             $top_dir/${subj}_epi_r2+orig.HEAD                    \
             $top_dir/${subj}_epi_r3+orig.HEAD                    \
         -tcat_remove_first_trs 2                                 \
+        -align_unifize_epi local                                 \
         -align_opts_aea -cost lpc+ZZ -giant_move -check_flip     \
         -tlrc_NL_warp                                            \
         -tlrc_NL_warped_dsets                                    \

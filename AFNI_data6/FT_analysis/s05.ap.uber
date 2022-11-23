@@ -22,6 +22,7 @@ afni_proc.py -subj_id $subj                                      \
             $top_dir/${subj}_epi_r2+orig.HEAD                    \
             $top_dir/${subj}_epi_r3+orig.HEAD                    \
         -tcat_remove_first_trs 2                                 \
+        -align_unifize_epi local                                 \
         -align_opts_aea -cost lpc+ZZ -giant_move -check_flip     \
         -volreg_align_to MIN_OUTLIER                             \
         -volreg_align_e2a                                        \
@@ -46,6 +47,6 @@ afni_proc.py -subj_id $subj                                      \
         -regress_est_blur_epits                                  \
         -regress_est_blur_errts                                  \
         -regress_run_clustsim no                                 \
-	-html_review_style basic				 \
+        -html_review_style pythonic                              \
         -execute 
 
