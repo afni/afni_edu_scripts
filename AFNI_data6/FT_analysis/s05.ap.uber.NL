@@ -34,6 +34,7 @@ afni_proc.py -subj_id $subj.NL                                   \
         -volreg_align_to MIN_OUTLIER                             \
         -volreg_align_e2a                                        \
         -volreg_tlrc_warp                                        \
+        -volreg_compute_tsnr yes                                 \
         -blur_size 4.0                                           \
         -mask_epi_anat yes                                       \
         -regress_stim_times                                      \
