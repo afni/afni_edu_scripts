@@ -1,0 +1,34 @@
+#!/bin/tcsh
+
+# Script to run afni_proc.py for resting state pre-processing
+# on the AFNI_data5 sample dataset, then move the results back
+# to this directory, delete all the other files.
+
+# Goal: compare AFNI InstaCorr on the datasets
+#       errts.s620.fanaticor+orig and s620_rest_r1+orig
+
+afni_proc.py -subj_id s620                                         \
+             -dsets s620_rest_r1+orig                              \
+             -copy_anat s620_t1_al2epi+orig -anat_has_skull no     \
+             -blocks despike tshift align volreg blur mask regress \
+             -tcat_remove_first_trs 2                              \
+             -blur_size 6 -blur_in_automask                        \
+             -volreg_align_e2a                                     \
+             -mask_apply epi                                       \
+             -regress_anaticor_fast                                \
+             -regress_censor_motion 0.2                            \
+             -regress_censor_outliers 0.05                         \
+             -regress_bandpass 0.01 0.2                            \
+             -regress_apply_mot_types demean deriv                 \
+             -regress_run_clustsim no -execute
+
+# move results up to here
+
+mv s620.results/errts.s620.fanaticor+orig.* s620.results/out.ss_review.s620.txt .
+gzip -9v errts.s620.fanaticor+orig.BRIK
+
+# delete all the other results
+
+\rm -rf s620.results output.proc.s620 proc.s620
+
+exit 0

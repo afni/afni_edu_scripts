@@ -1,0 +1,9 @@
+Current Archive:
+Maintained on eomer:/Volumes/Data/ziad/SUMA_test_dirs/AFNI_InstaCorrDemo.build
+See README.txt there for details
+
+Original Archive:
+Created with @PackInstaDemo 
+Archive created on Wed Feb 29 16:37:01 EST 2012
+on eomer.nimh.nih.gov, in /Volumes/raid.top/studies/fcon_1000/alldata
+Manually modified @RunVolGroupInCorr to setenv AFNI_DETACH NO  on Aug. 5 2013

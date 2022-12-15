@@ -1,0 +1,38 @@
+
+subject ID                : s620
+TRs removed (per run)     : 2
+num stim classes provided : 0
+final anatomy dset        : anat_final.s620+orig.HEAD
+final stats dset          : NO_STATS
+final errts dset          : errts.s620.fanaticor+orig.HEAD
+final voxel resolution    : 1.500000	1.500000	1.500000
+
+motion limit              : 0.2
+num TRs above mot limit   : 2
+average motion (per TR)   : 0.0312264
+average censored motion   : 0.0275814
+max motion displacement   : 0.699807
+max censored displacement : 0.578497
+outlier limit             : 0.05
+average outlier frac (TR) : 0.00267536
+num TRs above out limit   : 1
+
+num runs found            : 1
+num TRs per run           : 138
+num TRs per run (applied) : 135
+num TRs per run (censored): 3
+fraction censored per run : 0.0217391
+TRs total (uncensored)    : 138
+TRs total                 : 135
+degrees of freedom used   : 25
+degrees of freedom left   : 110
+
+TRs censored              : 3
+censor fraction           : 0.021739
+num regs of interest      : 0
+
+TSNR average              : 244.485
+global correlation (GCOR) : 0.0667125
+anat/EPI mask Dice coef   : 0.925984
+
+

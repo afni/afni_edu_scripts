@@ -1,0 +1,101 @@
+#!/bin/tcsh -f
+
+
+set stat = 0
+set sdir = $PWD
+if ("$1" == "-help" || "$1" == "-h") then
+   goto HELP
+endif
+set vpath = ./ 
+
+
+#Example in the volume:
+cd $vpath
+
+if (! -f G1.grpincorr.niml ) then
+   echo "Need G1.grpincorr.niml  in this directory"
+   goto BEND
+endif
+
+set an = `prompt_user -pause 'Close all existing AFNI sessions\nCleanup your desktop a little\nThen press OK'`
+if ($an == 0) then
+   echo "Stopped"
+   goto END
+endif
+
+set tt = `which xterm`
+if ($status) then
+   afni -niml -npb 0 -yesplugouts -layout DemoLayout
+   sleep 1
+   3dGroupInCorr -npb 0 -setA G1.grpincorr.niml -verb &
+else
+#Lauch AFNI in one terminal
+xterm    -name AFNI -geometry 80x30+0+450 -bg black -fg white   \
+       -e 'afni -no_detach -niml -npb 0 -yesplugouts -layout DemoLayout ' &
+sleep 1
+#Launch 3dGroupInCorr in another terminal
+xterm -name 3dGroupInCorr -geometry 80x30+500+450 -bg white -fg black   \
+      -e '3dGroupInCorr -npb 0 -setA G1.grpincorr.niml -verb' &
+endif
+
+#Setup AFNI
+plugout_drive -com 'OPEN_WINDOW A.axialimage'   \
+              -com 'OPEN_PANEL A.Define_Overlay'   \
+              -npb 0 -quit
+               
+prompt_user -pause \
+"Usage 1:   \
+  Click somewhere in image\
+  Right Click->InstaCorr Set\
+  Set Range to 1 \
+  Set threshold to about 3.1  \
+Usage 2: \
+Shift+Ctrl+Click and drag\
+ \
+This is a simple example with\
+one sample ttest. For more pointers \
+start with `basename $0` -help " > /dev/null &
+
+goto END
+
+HELP:
+echo "Toy set for demonstrating AFNI's GroupInCorr"
+echo "Close all existing AFNI sessions"
+echo "In one terminal launch:"
+echo "   afni -niml &"
+echo "In another terminal launch:"
+echo "   3dGroupInCorr -setA G1.grpincorr.niml  "
+echo "If you want a two sample ttest, then use instead"
+echo "   3dGroupInCorr -setA G1.grpincorr.niml -setB G2.grpincorr.niml "
+echo "If G2.grpincorr.niml is not present then you will need to install"
+echo "the full version of the demo by running @Install_InstaCorr_Demo from"
+echo "a new directory."
+echo ""
+echo "For more information:"
+echo "   3dGroupInCorr -help"
+echo "For information on setting up for  3dGroupInCorr:"
+echo "   3dSetupGroupInCorr -help"
+echo "or take a look at the demo script @SetupVolGroupInCorr"
+echo ""
+echo "Webpage:"
+echo "   FCON"
+echo "Message Board:"
+echo ""
+echo "Data Source:"
+echo "The data originate from the FCON1000 set"
+echo "This subset is grossly undersampled for the purpose of providing"
+echo "an easy to download demo dataset. The scripts used here are "
+echo "meant to illustrate the steps needed to run GroupInCorr"
+echo "You can obtain the entire AFNI pre-processed FCON1000 dataset"
+echo "and run the analysis on all the subjects at the acquisition resolution."
+echo "URL for AFNI preprocessed data set:"
+echo "" 
+
+goto END
+                            
+BEND:
+set stat = 1
+goto END
+
+END:
+exit $stat

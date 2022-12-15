@@ -1,0 +1,43 @@
+#!/bin/tcsh -fe
+
+source @CV.InstaDemo
+
+set sdir = $PWD
+set vpath = ./ 
+
+cd $vpath
+
+#Bandpass, regress out motion estimates, and smooth data
+set dlist = (`\ls -C1 rest_sub*.???.al2anat+tlrc.HEAD`)
+foreach dd ($dlist) 
+   set sub = `@GetAfniPrefix $dd`
+   if ( ! -f ${sub}_BP+tlrc.HEAD) then
+      3dBandpass  -ort ${sub:r}.motion.1D \
+                  -mask amask+tlrc -blur $FWHMv -band $Band[1] $Band[2] \
+                  -prefix ${sub}_BP -input $dd 
+   endif
+end
+
+set g = ( `\ls -C1 *_BP+tlrc.HEAD`)
+#Pretend we have two groups
+set cnt = 1
+set g1 = ()
+set g2 = ()
+foreach dset ($g) 
+   if ($cnt <= `ccalc -i $#g / 2`) then
+      set g1 = ($g1 $dset)
+   else
+      set g2 = ($g2 $dset)
+   endif
+   @ cnt ++
+end
+
+#Run the setup program 
+if ( ! -f G1.grpincorr.niml) then
+   3dSetupGroupInCorr -mask amask+tlrc -prefix G1 $g1
+endif
+if ( ! -f G2.grpincorr.niml) then
+   3dSetupGroupInCorr -mask amask+tlrc -prefix G2 $g1
+endif
+
+cd $sdir

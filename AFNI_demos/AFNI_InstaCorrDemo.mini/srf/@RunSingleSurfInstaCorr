@@ -1,0 +1,134 @@
+#!/bin/tcsh -fe
+
+set stat = 0
+set sdir = $PWD
+if ("$1" =~ -h*) then
+   goto HELP
+endif
+
+source @CV.InstaDemo
+
+set spath = ./ 
+set REFset = ($REFset_ss)
+
+set FWHM = 6
+
+cd $spath
+
+set SUMAdir = "SUMA.$REFset[2].$REFset[3].std.$ldv"
+
+#Do some smoothing, to be nice
+foreach hemi (lh rh)
+   if ( ! -f rest_${REFset[2]}.${REFset[3]}_${hemi}_SSM.std.${ldv}.niml.dset) then
+      echo "*********************"
+      echo Smoothing the data on hemisphere $hemi
+      echo "*********************"
+      SurfSmooth -i $SUMAdir/std.$ldv.${hemi}.smoothwm.asc   \
+                 -met HEAT_07 \
+                 -target_fwhm $FWHM   \
+        -blurmaster rest_${REFset[2]}.${REFset[3]}_${hemi}.std.${ldv}.niml.dset \
+                 -detrend_master   \
+          -input rest_${REFset[2]}.${REFset[3]}_${hemi}.std.${ldv}.niml.dset \
+          -output rest_${REFset[2]}.${REFset[3]}_${hemi}_SSM.std.${ldv}.niml.dset
+   endif
+end
+
+if ( "$1" == '-setup_only') goto END
+
+set an = `prompt_user  -pause 'Close all existing SUMA sessions\nCleanup your desktop a little\nThen press OK'`
+if ($an == 0) then
+   echo "Stopped"
+   goto END
+endif
+
+
+set tt = `which xterm`
+if ($status) then
+suma -npb 3 -spec $SUMAdir/std.$ldv.$REFset[2].${REFset[3]}_both.spec -niml &
+else
+#Lauch SUMA in one terminal
+xterm    -name SUMA -geometry 80x30+0+450 -bg black -fg white   \
+  -e "suma -npb 3 -spec $SUMAdir/std.$ldv.$REFset[2].${REFset[3]}_both.spec -niml "&
+endif
+
+set an = `prompt_user  -pause 'Press OK when surfaces are up'`
+if ($an == 0) then
+   echo "Stopped"
+   goto END
+endif
+echo "Loading time series data on both sides" 
+foreach hemi (lh rh)
+   DriveSuma -npb 3 -com surf_cont   -view_surf_cont y \
+             -com surf_cont \
+             -label     std.${ldv}.${hemi}.smoothwm.asc \
+             -I_range 500  \
+             -T_val 0.25   -view_surf_cont y \
+    -load_dset rest_$REFset[2].$REFset[3]_${hemi}_SSM.std.${ldv}.niml.dset  \
+                  >& /dev/null
+   sleep 1          
+end
+
+set an = `prompt_user  -pause \
+'After you press OK, the script will \n\
+1- Open a graph window with time series from the left hemisphere \n\
+2- Launch Instacorr on both hemispheres.'`
+if ($an == 0) then
+   echo "Stopped"
+   goto END
+endif
+
+DriveSuma   -npb 3 -com viewer_cont  \
+               -key:v100 j \
+               -key g                           
+
+foreach hemi (lh rh) 
+   DriveSuma  -npb 3  -com surf_cont \
+                  -label     std.${ldv}.${hemi}.smoothwm.asc \
+                  -view_surf_cont y 
+end            
+DriveSuma   -npb 3 -com viewer_cont  \
+               -key:v100 j \
+               -key D                           
+foreach hemi (lh rh) 
+   DriveSuma  -npb 3  -com surf_cont \
+                  -label     std.${ldv}.${hemi}.smoothwm.asc \
+                  -view_surf_cont n 
+end            
+
+set an = `prompt_user  -pause \
+'Arrange the multitude of windows that were thrown in your face.\n\
+To set a seed for InstaCorr, you can either\n\
+shft+ctrl+Right Click, or shft+ctrl+Right Click and drag. \n\
+\n\
+To save correlation results at any point, press 'ctrl+W' in the \n\
+SUMA viewer and the datasets will get written to the demo directory.\n\
+The output datset names contain the seed location.\n\
+\n\
+After you press OK, the script will then proceed to: \n\
+1- Set the correlation threshold on each of the hemispheres \n\
+2- Stop bugging you.'`
+if ($an == 0) then
+   echo "Stopped"
+   goto END
+endif
+foreach hemi (lh rh) 
+   DriveSuma  -npb 3  -com surf_cont \
+                  -label     std.${ldv}.${hemi}.smoothwm.asc \
+                  -T_val 0.25 
+end            
+
+goto END
+
+HELP:
+   echo ""
+   echo "Setup (if needed) and run demo for single-subject InstaCorr"
+   echo "on the surface."
+   echo "Just run the script and follow the instructions on the screen"
+   echo ""
+   echo "Option -setup_only just runs the setup part. "
+   echo ""
+goto END
+               
+END:
+cd $sdir
+

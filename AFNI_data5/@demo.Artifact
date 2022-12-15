@@ -1,0 +1,47 @@
+#!/bin/tcsh -f
+set Ssize = (0 0)
+set Axsize = (600 600)
+set Sasize = (600 600)
+set Gsize = (1400 290)
+
+set sc1 = (0 900) #Screen 1
+set sc2 = (1400 1050) #Screen 2
+
+
+set Spos = (`ccalc -i $sc1[1] + 1` 0)
+set AposAx = (`ccalc -i $sc1[1] + 1 + $Ssize[1]` 0)
+set AposSa = (`ccalc -i $sc1[1] + 1 + $Ssize[1] + $Axsize[1]` 0)
+set Gpos = ( $AposAx[1] `ccalc -i $AposAx[2] + $Axsize[2] + 10` )
+@Quiet_Talkers -npb_val 12
+sleep 2
+
+set kk = $PWD
+if ("$kk:t" != "AFNI_data5") cd AFNI_data5/
+
+if ( ! -f s620_rest_c3r1+orig.HEAD ) then
+   3dTcat -prefix s620_rest_c3r1 's620_rest_r1+orig.BRIK[3-$]'
+endif
+
+if ( ! -f epimask+orig.HEAD ) then
+   3dAutomask -prefix epimask s620_rest_r1+orig'[0]'
+endif
+
+afni -npb 12 -niml -yesplugouts      
+                      
+set an = `prompt_user -pause 'Hit enter when ready to position windows in public'`
+if ("$an" != 1) goto END
+
+plugout_drive -npb 12 \
+               -com 'SWITCH_UNDERLAY anat.ac'  \
+               -com "OPEN_WINDOW A.axialimage  ifrac=1.0"   \
+               -com "OPEN_WINDOW A.axialimage    geom=${Axsize[1]}x${Axsize[2]}+${AposAx[1]}+0"   \
+               -com "OPEN_WINDOW A.sagittalimage  ifrac=1.0"   \
+               -com "OPEN_WINDOW A.sagittalimage geom=${Sasize[1]}x${Sasize[2]}+${AposSa[1]}+${AposSa[2]}"   \
+               -quit
+               
+plugout_drive -npb 12 \
+               -com 'SET_ANATOMY B.errts.anaticor.FATCAT'   \
+               -com "OPEN_WINDOW B.axialgraph geom=${Gsize[1]}x${Gsize[2]}+$Gpos[1]+$Gpos[2]"  \
+               -quit
+
+END:

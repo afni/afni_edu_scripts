@@ -1,0 +1,95 @@
+#!/bin/tcsh -f
+
+
+set stat = 0
+set sdir = $PWD
+if ("$1" =~ -h) then
+   goto HELP
+endif
+
+source @CV.InstaDemo
+
+set spath = ./ 
+
+#Example on the surface
+cd $spath
+
+if (! -f G1.LR.grpincorr.niml) then
+   echo "Need G1.LR.grpincorr.niml in this directory"
+   goto BEND
+endif
+
+set an = `prompt_user -pause 'Close all existing SUMA sessions\nCleanup your desktop a little\nThen press OK'`
+if ($an == 0) then
+   echo "Stopped"
+   goto END
+endif
+echo suma -niml -spec SUMA.$REFset[2].$REFset[3].std.$ldv/std.$ldv.$REFset[2].${REFset[3]}_both.spec
+
+set tt = `which xterm`
+if ($status) then
+suma -npb 1 -niml -spec SUMA.$REFset[2].$REFset[3].std.$ldv/std.$ldv.$REFset[2].${REFset[3]}_both.spec &
+3dGroupInCorr -npb 1 -suma -setA G1.LR.grpincorr.niml -verb
+else
+#Lauch SUMA in one terminal
+xterm    -name SUMA -geometry 80x30+0+450 -bg black -fg white   \
+         -e "suma -npb 1 -niml -spec SUMA.$REFset[2].$REFset[3].std.$ldv/std.$ldv.$REFset[2].${REFset[3]}_both.spec" &
+
+sleep 1
+#Launch 3dGroupInCorr in another terminal
+xterm -name 3dGroupInCorr -geometry 80x30+500+450 -bg white -fg black   \
+      -e '3dGroupInCorr -npb 1 -suma -setA G1.LR.grpincorr.niml -verb' &
+endif
+
+#Setup SUMA
+               
+prompt_user -pause \
+"Usage 1:   \
+  shft+ctrl+Right Click somewhere on Surface (do it twice)\
+Usage 2: \
+  shft+ctrl+Right Click and drag\
+  \
+To save correlation results at any point, press 'ctrl+W' in the \
+SUMA viewer and the datasets will get written to the demo directory.\
+The output datset names contain the seed location.\
+ \
+This is a simple downsampled example with\
+one sample ttest. For more pointers \
+start with `basename $0` -help " > /dev/null &
+
+goto END
+
+HELP:
+echo "Put in a couple of help examples"
+echo "Close all existing AFNI sessions"
+echo "In one terminal launch:"
+echo "   afni -niml &"
+echo "In another terminal launch:"
+echo "   3dGroupInCorr -setA G1.LR.grpincorr.niml  "
+echo "If you want a two sample ttest, then use instead"
+echo "   3dGroupInCorr -setA G1.LR.grpincorr.niml -setB G2.LR.grpincorr.niml "
+echo "If G2.LR.grpincorr.niml is not present then you will need to install"
+echo "the full version of the demo by running @Install_InstaCorr_Demo from"
+echo "a new directory."
+echo ""
+echo "For more information:"
+echo "   3dGroupInCorr -help"
+echo "For information on setting up for  3dGroupInCorr:"
+echo "   3dSetupGroupInCorr -help"
+echo "or take a look at the demo script @SetupVolGroupInCorr"
+echo ""
+echo "Webpage:"
+echo ""
+echo "Message Board:"
+echo ""
+echo "Data Source:"
+echo ""
+
+goto END
+                            
+BEND:
+set stat = 1
+goto END
+
+END:
+exit $stat

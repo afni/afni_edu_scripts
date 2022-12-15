@@ -1,0 +1,41 @@
+# A file to be sourced by many scripts
+
+set ldv = ( 60 )
+set hemlist = (lh rh )
+set Templ = ~/abin/MNI_avg152T1+tlrc
+set Band = (0.01 0.1) #Bandwidth
+set FWHMv = 6
+set targFWHMs = 6
+set ores = ( 5 5 5 )
+set subj_info = ( \
+	Baltimore		sub37548       BAL \
+	Beijing_Zang		sub00440    BEZ \
+	Beijing_Zang		sub01244    BEZ \
+	Beijing_Zang		sub15441    BEZ \
+	Beijing_Zang		sub16943    BEZ \
+	Beijing_Zang		sub17642    BEZ \
+	Beijing_Zang		sub19642    BEZ \
+	Beijing_Zang		sub20948    BEZ \
+	Beijing_Zang		sub33943    BEZ \
+	Beijing_Zang		sub36942    BEZ \
+	Beijing_Zang		sub42843    BEZ \
+	Beijing_Zang		sub46541    BEZ \
+	Beijing_Zang		sub52044    BEZ \
+	Beijing_Zang		sub55541    BEZ \
+	Berlin_Margulies	sub33248    BRL \
+	Berlin_Margulies	sub28092    BRL \
+	Cleveland		sub17946       CLV \
+	Dallas			sub19940       DAL \
+	Leiden_2200		sub30943       LE2 \
+	Leiden_2200		sub36743       LE2 \
+	Leipzig			sub25344       LEP \
+	Leipzig			sub41241       LEP \
+	NewHaven_a		sub29140       NHA \
+	SaintLouis		sub02142       STL \
+	SaintLouis		sub03345       STL \
+	SaintLouis		sub12941       STL \
+	SaintLouis		sub97935       STL \
+	SaintLouis		sub99965       STL \
+)
+set REFset = ( SaintLouis   sub02142    STL) 
+set REFset_ss = ( Beijing_Zang   sub00440  BEZ )

@@ -1,0 +1,15 @@
+Subject                           DMNcov
+rest_sub00440.BEZ.BEZ.al2anat_BP  0.168399
+rest_sub01244.BEZ.BEZ.al2anat_BP  -0.644085
+rest_sub02142.STL.STL.al2anat_BP  0.428748
+rest_sub03345.STL.STL.al2anat_BP  0.594214
+rest_sub12941.STL.STL.al2anat_BP  0.63098
+rest_sub15441.BEZ.BEZ.al2anat_BP  0.017545
+rest_sub16943.BEZ.BEZ.al2anat_BP  -0.222323
+rest_sub17642.BEZ.BEZ.al2anat_BP  -0.0288712
+rest_sub17946.CLV.CLV.al2anat_BP  -0.61428
+rest_sub19642.BEZ.BEZ.al2anat_BP  0.157543
+rest_sub19940.DAL.DAL.al2anat_BP  -0.874272
+rest_sub20948.BEZ.BEZ.al2anat_BP  -0.169577
+rest_sub25344.LEP.LEP.al2anat_BP  -0.121163
+rest_sub28092.BRL.BRL.al2anat_BP  0.677139

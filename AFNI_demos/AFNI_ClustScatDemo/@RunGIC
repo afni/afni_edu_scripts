@@ -1,0 +1,19 @@
+#!/bin/tcsh
+
+3dGroupInCorr -setA GICrest.grpincorr.niml -sendall -covariates GICrest.cov.txt &
+
+sleep 1
+
+afni -com 'SET_UNDERLAY MNI152_1mm_uni'               \
+     -com 'ALTER_WINDOW A geom=+20+20'                \
+     -com 'OPEN_WINDOW  axialimage geom=+40+500'      \
+     -com 'OPEN_WINDOW  sagittalimage geom=+400+500'  \
+     -com 'OPEN_PANEL   Define_Overlay'               \
+     -niml -yesplugouts
+
+sleep 1
+
+plugout_drive -com 'SET_DICOM_XYZ 0 50 20'  \
+              -com 'INSTACORR SET'          \
+              -com 'SET_THRESHNEW 3.9'      \
+              -quit

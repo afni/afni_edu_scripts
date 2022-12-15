@@ -1,0 +1,82 @@
+#!/bin/tcsh -fe
+
+set sdir = $PWD
+
+source @CV.InstaDemo
+
+set spath = ./ 
+
+cd $spath
+
+#Bandpass and regress out motion estimates
+foreach ll ($hemlist)
+   set dlist = (`\ls -C1 rest_sub*.???_${ll}.std.$ldv.niml.dset`)
+   foreach dd ($dlist) 
+      set resb = `echo $dd | cut -f 1 -d .`
+      set subj = `echo $resb | cut -f 2 -d _`
+      set qual = `echo $dd | cut -f 2 -d . | cut -f 1 -d _`
+      if (! -f ${resb}.${qual}_${ll}_SM.niml.dset) then
+         SurfSmooth  \
+                  -i SUMA.$subj.$qual.std.${ldv}/std.${ldv}.${ll}.smoothwm.asc \
+                     -met HEAT_07 \
+                     -input $dd \
+                     -target_fwhm $targFWHMs   \
+                     -blurmaster $dd \
+                     -detrend_master   \
+                     -output ${resb}.${qual}_${ll}_SM.niml.dset
+      endif
+      set in = ${resb}.${qual}_${ll}_SM.niml.dset
+      
+      if ( ! -f ${resb}.${qual}_${ll}.GS.1D) then
+         3dmaskave -quiet $in > ${resb}.${qual}_${ll}.GS.1D
+      endif
+      if ( ! -f ${resb}.${qual}_${ll}_BP.niml.dset) then
+         #To add global signal regression, (NOT RECOMMENDED)
+         #just add -ort ${resb}.${qual}_${ll}.GS.1D to the options
+         #below.
+         3dBandpass  -ort motion/${resb}.${qual}.motion.1D \
+                     -band $Band[1] $Band[2] \
+                     -prefix ${resb}.${qual}_${ll}_BP.niml.dset \
+                     -input  $in
+      endif
+   end
+end
+
+set g = ( `\ls -C1 *_[lr]h_BP.niml.dset`)
+#Pretend we have two groups
+set cnt = 1
+set g1 = ()
+set g2 = ()
+while ($cnt <= $#g)
+   if ($cnt <= `ccalc -i $#g / 2`) then
+      set g1 = ($g1 $g[$cnt])
+      @ cnt ++
+      set g1 = ($g1 $g[$cnt])
+   else
+      set g2 = ($g2 $g[$cnt])
+      @ cnt ++
+      set g2 = ($g2 $g[$cnt])
+   endif
+   @ cnt ++
+end
+
+#Run the setup program 
+if ( ! -f G1.LR.grpincorr.niml) then
+   set echo
+   3dSetupGroupInCorr \
+      -LRpairs SUMA.$REFset[2].$REFset[3].std.$ldv/std.$ldv.lh.pial.asc  \
+               SUMA.$REFset[2].$REFset[3].std.$ldv/std.$ldv.rh.pial.asc  \
+      -prefix G1.LR \
+      $g1
+endif
+if ( ! -f G2.LR.grpincorr.niml) then
+   3dSetupGroupInCorr \
+      -LRpairs SUMA.$REFset[2].$REFset[3].std.$ldv/std.$ldv.lh.pial.asc  \
+               SUMA.$REFset[2].$REFset[3].std.$ldv/std.$ldv.rh.pial.asc  \
+      -prefix G2.LR \
+      $g2
+endif
+
+cd $sdir
+
+

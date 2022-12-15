@@ -1,0 +1,10 @@
+#!/bin/tcsh
+
+afni -com 'SET_UNDERLAY MNI152_1mm_uni'               \
+     -com 'SET_OVERLAY  TaskParam_stats'              \
+     -com 'ALTER_WINDOW A geom=+20+20'                \
+     -com 'OPEN_WINDOW  axialimage geom=+40+500'      \
+     -com 'OPEN_PANEL   Define_Overlay'               \
+     -com 'SEE_OVERLAY'                               \
+     -com 'SET_THRESHNEW 3.9'                         \
+     -com 'SET_FUNC_RANGE 1.2'
