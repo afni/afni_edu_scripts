@@ -14,7 +14,7 @@ set top_dir = ${subj}
 
 # run afni_proc.py to create a single subject processing script
 afni_proc.py -subj_id $subj.NL                                   \
-        -blocks tshift align tlrc volreg blur mask scale regress \
+        -blocks tshift align tlrc volreg mask blur scale regress \
         -radial_correlate_blocks tcat volreg                     \
         -copy_anat Qwarp/anat_warped/anatSS.FT.nii               \
         -anat_has_skull no                                       \
@@ -26,6 +26,7 @@ afni_proc.py -subj_id $subj.NL                                   \
         -tcat_remove_first_trs 2                                 \
         -align_unifize_epi local                                 \
         -align_opts_aea -cost lpc+ZZ -giant_move -check_flip     \
+        -tlrc_base MNI152_T1_2009c+tlrc                          \
         -tlrc_NL_warp                                            \
         -tlrc_NL_warped_dsets                                    \
             Qwarp/anat_warped/anatQQ.FT.nii                      \
@@ -35,8 +36,8 @@ afni_proc.py -subj_id $subj.NL                                   \
         -volreg_align_e2a                                        \
         -volreg_tlrc_warp                                        \
         -volreg_compute_tsnr yes                                 \
-        -blur_size 4.0                                           \
         -mask_epi_anat yes                                       \
+        -blur_size 4.0                                           \
         -regress_stim_times                                      \
             $top_dir/AV1_vis.txt                                 \
             $top_dir/AV2_aud.txt                                 \
