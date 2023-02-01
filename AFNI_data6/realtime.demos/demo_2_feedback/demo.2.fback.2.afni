@@ -7,12 +7,13 @@
 setenv AFNI_REALTIME_Registration  3D:_realtime
 setenv AFNI_REALTIME_Base_Image    2
 setenv AFNI_REALTIME_Graph         Realtime
-# this is the host and port that realtime_reciever.py is listening at
+# which host:port to send motoin params to
 setenv AFNI_REALTIME_MP_HOST_PORT  localhost:53214
-# AFNI_REALTIME_SEND_VER is required for realtime_receiver.py
-# (and is not available in plug_realtime)
+# realtime_receiver.py expects a handshake including a communication version
+# (this will specify what Mask_Vals will send)
+# ** this is not currently available in plug_realtime
 setenv AFNI_REALTIME_SEND_VER      YES
-# to evaluate the timing of different aspects of the realtime setup
+# informational: to help evaluate the realtime speed/timing
 setenv AFNI_REALTIME_SHOW_TIMES    YES
 # send both motion params and ROI averages to realtime_receiver.py
 setenv AFNI_REALTIME_Mask_Vals     ROI_means

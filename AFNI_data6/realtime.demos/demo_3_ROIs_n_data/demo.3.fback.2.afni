@@ -11,15 +11,21 @@ cd $outdir
 
 
 # general
+
+# this version of registration is required for feedback
 setenv AFNI_REALTIME_Registration  3D:_realtime
 setenv AFNI_REALTIME_Base_Image    2
 setenv AFNI_REALTIME_Graph         Realtime
+# which host:port to send motoin params to
 setenv AFNI_REALTIME_MP_HOST_PORT  localhost:53214
+# realtime_receiver.py expects a handshake including a communication version
+# (this will specify what Mask_Vals will send)
+# ** this is not currently available in plug_realtime
 setenv AFNI_REALTIME_SEND_VER      YES
+# informational: to help evaluate the realtime speed/timing
 setenv AFNI_REALTIME_SHOW_TIMES    YES
 setenv AFNI_REALTIME_Verbose       Very
-
-# specific
+# at each TR, send motion, ROI means, and all values for just ROI 1
 setenv AFNI_REALTIME_Mask_Vals     ROIs_and_data
 setenv AFNI_REALTIME_Mask_Dset     ../rt.input/mask_AV_bits+orig
 
