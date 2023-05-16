@@ -1,0 +1,22 @@
+# datasets
+*.nii*
+*.BRIK*
+*.HEAD*
+*.gii*
+*.dset*
+*.niml
+*.1D
+
+# backup files
+*.BAK
+*~
+*junk*
+*.swp
+.*.swp
+.DS_Store
+__*
+
+# misc
+*.Rout
+*.args
+*.vvs
