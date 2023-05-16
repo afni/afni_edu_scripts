@@ -8,7 +8,7 @@
 # All tests can be done with 3dttest++ or 3dMEMA!
 
 3dMVM \
--prefix output.ANOVA.niml.dset \
+-prefix result.MVM_ANOVA.niml.dset \
 -jobs 2 \
 -bsVars Group \
 -wsVars 'Condition*Image*Clarity' \

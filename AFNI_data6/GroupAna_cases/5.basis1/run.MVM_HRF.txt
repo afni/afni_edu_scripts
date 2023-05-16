@@ -4,11 +4,11 @@
 # response overall; 2) account for temporal correlation
 # across time points
 
-3dMVM -prefix output.MVM -jobs 2          \
-      -bsVars 1                 \
-      -mVar Time                    \
-      -mvE4                 \
-      -num_glt 8                \
+3dMVM -prefix result.MVM_HRF -jobs 2  \
+      -bsVars 1                       \
+      -mVar Time                      \
+      -mvE4                           \
+      -num_glt 8                      \
       -gltLabel 1 time0 -gltCode 1 'Time : 1*Diff0' \
       -gltLabel 2 time1 -gltCode 2 'Time : 1*Diff1' \
       -gltLabel 3 time2 -gltCode 3 'Time : 1*Diff2' \

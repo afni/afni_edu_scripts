@@ -4,7 +4,7 @@
 # By default 3dttest++ can only compare two groups 
 # Group comparison: A-B
 
-3dttest++ -prefix output.ttest_2grps      \
+3dttest++ -prefix result.2_ttest_2grps    \
 -covariates cov_2grps.1D -center DIFF     \
 -setA VV \
 as   data/as+tlrc'[HO_resvnr_mvn#0_Coef]' \

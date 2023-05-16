@@ -4,11 +4,11 @@
 # response overall; 2) account for temporal correlation
 # across time points
 
-3dLME -prefix output.LME.AR1 -jobs 2          \
+3dLME -prefix result.LME_AR1 -jobs 2  \
       -model '0+Time'                 \
       -qVars order                    \
       -qVarCenters 0                  \
-      -ranEff '~1'                       \
+      -ranEff '~1'                    \
       -corStr 'order : AR1'           \
       -SS_type 3                      \
       -dataTable                      \

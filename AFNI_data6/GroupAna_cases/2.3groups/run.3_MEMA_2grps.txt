@@ -4,7 +4,7 @@
 # By default xxi3dMEMA++ can only compare two groups
 # Group comparison: B-A
 
-3dMEMA -prefix output.MEMA_2grps -jobs 2             \
+3dMEMA -prefix result.3_MEMA_2grps -jobs 2           \
 -groups VV VM -missing_data 0                        \
 -covariates cov_2grps.1D -covariates_center FD = 0 0 \
 -covariates_model center=same slope=different        \

@@ -3,11 +3,11 @@
 # have to use 3dMVM due to unequal number of subjects across
 # groups
 
-3dMVM   -prefix output.MVM -jobs 2           \
+3dMVM   -prefix result.1_MVM_unequal -jobs 2  \
         -bsVars Group                         \
-        -wsVars 'Time'                       \
-        -mvE4                               \
-        -num_glt 20                          \
+        -wsVars 'Time'                        \
+        -mvE4                                 \
+        -num_glt 20                           \
         -gltLabel 1 ctrl_t0 -gltCode 1 'Group : 1*ctrl Time : 1*t0' \
         -gltLabel 2 ctrl_t1 -gltCode 2 'Group : 1*ctrl Time : 1*t1' \
         -gltLabel 3 ctrl_t2 -gltCode 3 'Group : 1*ctrl Time : 1*t2' \

@@ -3,7 +3,7 @@
 # LME accounts for within-subject variability in RT effect: each
 # subject may deviate from the group RT effect 
 
-3dLME -prefix output.LME.ranslp -jobs 2    \
+3dLME -prefix result.LME_ran_slp -jobs 2   \
       -model 'cond*RT'                     \
       -qVars RT                            \
       -qVarCenters 0                       \

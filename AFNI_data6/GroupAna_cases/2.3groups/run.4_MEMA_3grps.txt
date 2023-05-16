@@ -5,7 +5,7 @@
 # Here the subject grouping is coded through covariates (similarly for 3dttest++)
 # Notice the centering strategy
 
-3dMEMA -prefix output.3grps -jobs 2 \
+3dMEMA -prefix result.4_MEMA_3grps -jobs 2 \
 -missing_data 0 -HKtest \
 -covariates cov_3grps.1D \
 -covariates_center VM-VV = 0 MM-VV = 0 FD = 0 \

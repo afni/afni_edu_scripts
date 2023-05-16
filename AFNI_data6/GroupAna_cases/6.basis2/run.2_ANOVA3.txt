@@ -3,7 +3,7 @@
 # 7 subjects removed from pat group so that both groups have 19 
 # subjects; much faster than 3dMVM 
 
-3dANOVA3 -bucket output.ANOVA3 -type 5     \
+3dANOVA3 -bucket result.2_ANOVA3 -type 5   \
          -alevels 2 -blevel 10 -clevel 19  \
          -fab    overallGrpDiff		   \
          -abmean 1 1 ctrl-t0		   \

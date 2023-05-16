@@ -20,7 +20,7 @@
 #  S122        1   1       1
 #  S123        1   1       1
 
-3dLME -prefix cond.LME2 -jobs 2 \
+3dLME -prefix result.LME2 -jobs 2 \
 -model "Cond" \
 -SS_type 3 \
 -ranEff '~1' \
