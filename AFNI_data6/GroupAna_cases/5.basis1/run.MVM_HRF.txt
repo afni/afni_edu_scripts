@@ -7,7 +7,6 @@
 3dMVM -prefix result.MVM_HRF -jobs 2  \
       -bsVars 1                       \
       -mVar Time                      \
-      -mvE4                           \
       -num_glt 8                      \
       -gltLabel 1 time0 -gltCode 1 'Time : 1*Diff0' \
       -gltLabel 2 time1 -gltCode 2 'Time : 1*Diff1' \
