@@ -1,0 +1,33 @@
+# list all files not in git tree
+@diff.tree git.ad6 AFNI_data6 | sed 's/extra old file: AFNI_data6.//'
+
+# list all differing files that exist in git
+@diff.tree -ignore_missing git.ad6 AFNI_data6
+
+# ----------------------------------------------------------------------
+# @diff.tree overview: see out.diff.tree.txt
+
+different file lists found: 133 vs. 3895
+
+DICOM_T1
+EPI_run1
+FT_analysis/FT : anat, epi, SUMA
+           /PPI/ppi.sample.dir
+           /results.QC_FT.05.NL
+FT_analysis/results.QC_FT.rest.11
+FT_analysis/results.clustsim.05
+GroupAna_cases/1.3conds/Baseline
+GroupAna_cases/1.3conds/Ket
+GroupAna_cases/1.3conds/Placebo
+GroupAna_cases/1.3conds/cond.LME+tlrc
+GroupAna_cases/2.3groups/data
+GroupAna_cases/3.anova/data
+GroupAna_cases/4.RanSlp/data
+GroupAna_cases/5.basis1/data
+GroupAna_cases/6.basis2/data
+afni/dsets, epi_r1_ideal.1D motion.1D
+group_results/dsets
+ht03/bad_stim/bad_stim?.1D
+realtime.demos/demo_3_ROIs_n_data/rt.input
+roi_demo/dsets
+unix_tutorial
