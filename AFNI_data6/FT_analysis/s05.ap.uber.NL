@@ -26,7 +26,7 @@ afni_proc.py -subj_id $subj.NL                                   \
         -tcat_remove_first_trs 2                                 \
         -align_unifize_epi local                                 \
         -align_opts_aea -cost lpc+ZZ -giant_move -check_flip     \
-        -tlrc_base MNI152_T1_2009c+tlrc                          \
+        -tlrc_base MNI152_2009_template.nii.gz                   \
         -tlrc_NL_warp                                            \
         -tlrc_NL_warped_dsets                                    \
             Qwarp/anat_warped/anatQQ.FT.nii                      \

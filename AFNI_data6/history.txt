@@ -1,3 +1,7 @@
+22 Sep 2023 [rickr]: GroupAna_cases afni_proc.py template
+   - improve some of the formatting of GroupAna_cases files
+   - FT_analysis/s05 scripts: changed 2009c to 2009_template
+31 Jul 2023 [gangc]: removed -mvE4 option from 3dMVM commands
 16 May 2023 [rickr]: renamed GroupAna_cases scripts and output
 23 Nov 2022 [rickr]: s05: added align_unifize_epi local
 12 Apr 2022 [rickr]: changed s05 html_review_style to pythonic
