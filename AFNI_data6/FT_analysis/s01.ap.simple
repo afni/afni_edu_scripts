@@ -3,7 +3,7 @@
 # - creates the most basic processing script, still in +orig space
 # - currently, the tutorial correponds to the resulting proc script
 
-afni_proc.py -subj_id FT                \
+afni_proc.py -subj_id FT.simple         \
         -dsets FT/FT_epi_r?+orig.HEAD   \
         -copy_anat FT/FT_anat+orig      \
         -tcat_remove_first_trs 2        \
