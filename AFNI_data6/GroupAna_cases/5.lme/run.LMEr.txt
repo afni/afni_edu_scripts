@@ -1,0 +1,134 @@
+# 2-way within-individual ANOVA 
+# factor 1: Category with 3 levels (A, H, T)
+# factor 2: Affect with 2 levels (Neg, Neut)
+# 18 participants
+# analyzed through hierarchical modeling using 3dLMEr
+
+3dLMEr -dbgArgs  -prefix LMEr -jobs 2   \
+         -model 'Affect*Category+(1|Subj)+(1|Affect:Subj)+(1|Category:Subj)'   \
+         -gltCode AvsT          'Category : 1*A -1*T' \
+         -gltCode HvsA          'Category : 1*H -1*A' \
+         -gltCode HvsT          'Category : 1*H -1*T' \
+         -gltCode NegvsNeut     'Affect   : 1*Neg -1*Neut' \
+         -gltCode interAvT      'Category : 1*A -1*T Affect : 1*Neg -1*Neut' \
+         -gltCode interHvT      'Category : 1*H -1*T Affect : 1*Neg -1*Neut' \
+         -gltCode interHvA      'Category : 1*H -1*A Affect : 1*Neg -1*Neut' \
+         -gltCode ANegvsANeut   'Affect : 1*Neg -1*Neut Category : 1*A' \
+         -gltCode HNegvsHNeut   'Affect : 1*Neg -1*Neut Category : 1*H' \
+         -gltCode TNegvsTNeut   'Affect : 1*Neg -1*Neut Category : 1*T' \
+         -gltCode ANegvsTNeg    'Category : 1*A -1*T Affect : 1*Neg' \
+         -gltCode HNegvsANeg    'Category : 1*H -1*A Affect : 1*Neg' \
+         -gltCode  HNegvsTNeg   'Category : 1*H -1*T Affect : 1*Neg' \
+         -gltCode  ANeutvsTNeut 'Category : 1*A -1*T Affect : 1*Neut' \
+         -gltCode  HNeutvsANeut 'Category : 1*H -1*A Affect : 1*Neut' \
+         -gltCode  HNeutvsTNeut 'Category : 1*H -1*T Affect : 1*Neut' \
+	 -dataTable      \
+Subj  Affect Category     InputFile                \
+ss03	Neg	A	data/ss03.a.neg+tlrc          \
+ss04	Neg	A	data/ss04.a.neg+tlrc          \
+ss05	Neg	A	data/ss05.a.neg+tlrc       \
+ss06    Neg	A       data/ss06.a.neg+tlrc    \
+ss07	Neg	A	data/ss07.a.neg+tlrc \
+ss08	Neg	A	data/ss08.a.neg+tlrc \
+ss09	Neg	A	data/ss09.a.neg+tlrc \
+ss10	Neg	A	data/ss10.a.neg+tlrc \
+ss11	Neg	A	data/ss11.a.neg+tlrc \
+ss12	Neg	A	data/ss12.a.neg+tlrc \
+ss13	Neg	A	data/ss13.a.neg+tlrc \
+ss14	Neg	A	data/ss14.a.neg+tlrc \
+ss15	Neg	A	data/ss15.a.neg+tlrc \
+ss16	Neg	A	data/ss16.a.neg+tlrc \
+ss17	Neg	A	data/ss17.a.neg+tlrc \
+ss18	Neg	A	data/ss18.a.neg+tlrc \
+ss19	Neg	A	data/ss19.a.neg+tlrc \
+ss20	Neg	A	data/ss20.a.neg+tlrc \
+ss03	Neut	A	data/ss03.a.neut+tlrc \
+ss04	Neut	A	data/ss04.a.neut+tlrc \
+ss05	Neut	A	data/ss05.a.neut+tlrc \
+ss06	Neut	A	data/ss06.a.neut+tlrc \
+ss07	Neut	A	data/ss07.a.neut+tlrc \
+ss08	Neut	A	data/ss08.a.neut+tlrc \
+ss09	Neut	A	data/ss09.a.neut+tlrc \
+ss10	Neut	A	data/ss10.a.neut+tlrc \
+ss11	Neut	A	data/ss11.a.neut+tlrc \
+ss12	Neut	A	data/ss12.a.neut+tlrc \
+ss13	Neut	A	data/ss13.a.neut+tlrc \
+ss14	Neut	A	data/ss14.a.neut+tlrc \
+ss15	Neut	A	data/ss15.a.neut+tlrc \
+ss16	Neut	A	data/ss16.a.neut+tlrc \
+ss17	Neut	A	data/ss17.a.neut+tlrc \
+ss18	Neut	A	data/ss18.a.neut+tlrc \
+ss19	Neut	A	data/ss19.a.neut+tlrc \
+ss20	Neut	A	data/ss20.a.neut+tlrc \
+ss03	Neg	H	data/ss03.h.neg+tlrc \
+ss04	Neg	H	data/ss04.h.neg+tlrc \
+ss05	Neg	H	data/ss05.h.neg+tlrc \
+ss06	Neg	H	data/ss06.h.neg+tlrc \
+ss07	Neg	H	data/ss07.h.neg+tlrc \
+ss08	Neg	H	data/ss08.h.neg+tlrc \
+ss09	Neg	H	data/ss09.h.neg+tlrc \
+ss10	Neg	H	data/ss10.h.neg+tlrc \
+ss11	Neg	H	data/ss11.h.neg+tlrc \
+ss12	Neg	H	data/ss12.h.neg+tlrc \
+ss13	Neg	H	data/ss13.h.neg+tlrc \
+ss14	Neg	H	data/ss14.h.neg+tlrc \
+ss15	Neg	H	data/ss15.h.neg+tlrc \
+ss16	Neg	H	data/ss16.h.neg+tlrc \
+ss17	Neg	H	data/ss17.h.neg+tlrc \
+ss18	Neg	H	data/ss18.h.neg+tlrc \
+ss19	Neg	H	data/ss19.h.neg+tlrc \
+ss20	Neg	H	data/ss20.h.neg+tlrc \
+ss03	Neut	H	data/ss03.h.neut+tlrc \
+ss04	Neut	H	data/ss04.h.neut+tlrc \
+ss05	Neut	H	data/ss05.h.neut+tlrc \
+ss06	Neut	H	data/ss06.h.neut+tlrc \
+ss07	Neut	H	data/ss07.h.neut+tlrc \
+ss08	Neut	H	data/ss08.h.neut+tlrc \
+ss09	Neut	H	data/ss09.h.neut+tlrc \
+ss10	Neut	H	data/ss10.h.neut+tlrc \
+ss11	Neut	H	data/ss11.h.neut+tlrc \
+ss12	Neut	H	data/ss12.h.neut+tlrc \
+ss13	Neut	H	data/ss13.h.neut+tlrc \
+ss14	Neut	H	data/ss14.h.neut+tlrc \
+ss15	Neut	H	data/ss15.h.neut+tlrc \
+ss16	Neut	H	data/ss16.h.neut+tlrc \
+ss17	Neut	H	data/ss17.h.neut+tlrc \
+ss18	Neut	H	data/ss18.h.neut+tlrc \
+ss19	Neut	H	data/ss19.h.neut+tlrc \
+ss20	Neut	H	data/ss20.h.neut+tlrc \
+ss03	Neg	T	data/ss03.t.neg+tlrc \
+ss04	Neg	T	data/ss04.t.neg+tlrc \
+ss05	Neg	T	data/ss05.t.neg+tlrc \
+ss06	Neg	T	data/ss06.t.neg+tlrc \
+ss07	Neg	T	data/ss07.t.neg+tlrc \
+ss08	Neg	T	data/ss08.t.neg+tlrc \
+ss09	Neg	T	data/ss09.t.neg+tlrc \
+ss10	Neg	T	data/ss10.t.neg+tlrc \
+ss11	Neg	T	data/ss11.t.neg+tlrc \
+ss12	Neg	T	data/ss12.t.neg+tlrc \
+ss13	Neg	T	data/ss13.t.neg+tlrc \
+ss14	Neg	T	data/ss14.t.neg+tlrc \
+ss15	Neg	T	data/ss15.t.neg+tlrc \
+ss16	Neg	T	data/ss16.t.neg+tlrc \
+ss17	Neg	T	data/ss17.t.neg+tlrc \
+ss18	Neg	T	data/ss18.t.neg+tlrc \
+ss19	Neg	T	data/ss19.t.neg+tlrc \
+ss20	Neg	T	data/ss20.t.neg+tlrc \
+ss03	Neut	T	data/ss03.t.neut+tlrc \
+ss04	Neut	T	data/ss04.t.neut+tlrc \
+ss05	Neut	T	data/ss05.t.neut+tlrc \
+ss06	Neut	T	data/ss06.t.neut+tlrc \
+ss07	Neut	T	data/ss07.t.neut+tlrc \
+ss08	Neut	T	data/ss08.t.neut+tlrc \
+ss09	Neut	T	data/ss09.t.neut+tlrc \
+ss10	Neut	T	data/ss10.t.neut+tlrc \
+ss11	Neut	T	data/ss11.t.neut+tlrc \
+ss12	Neut	T	data/ss12.t.neut+tlrc \
+ss13	Neut	T	data/ss13.t.neut+tlrc \
+ss14	Neut	T	data/ss14.t.neut+tlrc \
+ss15	Neut	T	data/ss15.t.neut+tlrc \
+ss16	Neut	T	data/ss16.t.neut+tlrc \
+ss17	Neut	T	data/ss17.t.neut+tlrc \
+ss18	Neut	T	data/ss18.t.neut+tlrc \
+ss19	Neut	T	data/ss19.t.neut+tlrc \
+ss20	Neut	T	data/ss20.t.neut+tlrc
