@@ -4,7 +4,7 @@
 # 18 participants
 # analyzed using 3dMVM
 
-3dMVM    -prefix MVM -jobs 2   \
+3dMVM    -prefix result.MVM -jobs 2   \
          -wsVars 'Affect*Category'   \
          -num_glt 16                \
          -gltLabel 1 AvsT           -gltCode 1 'Category : 1*A -1*T' \

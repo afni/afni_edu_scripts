@@ -4,7 +4,7 @@
 # 18 participants
 # analyzed through hierarchical modeling using 3dLMEr
 
-3dLMEr -dbgArgs  -prefix LMEr -jobs 2   \
+3dLMEr   -prefix result.LMEr -jobs 2   \
          -model 'Affect*Category+(1|Subj)+(1|Affect:Subj)+(1|Category:Subj)'   \
          -gltCode AvsT          'Category : 1*A -1*T' \
          -gltCode HvsA          'Category : 1*H -1*A' \

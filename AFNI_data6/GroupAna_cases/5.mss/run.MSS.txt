@@ -4,7 +4,7 @@
 # input stored in table hdr.tbl
 # predicted HDRs specified in hdrPred.tbl
 
-3dMSS -prefix hdr -jobs 2 -dbgArgs \
+3dMSS -prefix result.MSS -jobs 2 -dbgArgs \
       -lme 'sex+s(TR)+s(TR,by=grp)' \
       -ranEff 'list(sub=~1)' \
       -sdiff   'grp'       \
