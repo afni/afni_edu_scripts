@@ -1,3 +1,6 @@
+# layer fMRI data: 16 participants; 11 layers
+# modeling the profile across layers
+
 PTA -prefix result1                     \
     -input input.txt                        \
     -model 's(layer,k=10)+s(Subj,bs="re")'  \

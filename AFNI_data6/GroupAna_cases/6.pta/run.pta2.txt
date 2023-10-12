@@ -1,3 +1,7 @@
+# layer fMRI data: 16 participants; 11 layers
+# modeling the profile across layers
+# separate linear and nonlinear assessments
+
 PTA -prefix result2                                          \
     -input input.txt                                         \
     -model 'layer+s(layer,k=10,m=c(2,0))+s(Subj,bs="re")' \
