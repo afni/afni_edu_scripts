@@ -1,3 +1,4 @@
+12 Oct 2023 [rickr]: regenerate FT_analysis/results.QC trees
 12 Oct 2023 [gangc]: redo GroupAna_cases tree: dirs, scripts, data
 27 Sep 2023 [rickr]: GroupAna_cases, afni_proc.py, template
    - improve some of the formatting of GroupAna_cases files
