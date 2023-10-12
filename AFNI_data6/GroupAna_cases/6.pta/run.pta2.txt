@@ -1,0 +1,6 @@
+PTA -prefix result2                                          \
+    -input input.txt                                         \
+    -model 'layer+s(layer,k=10,m=c(2,0))+s(Subj,bs="re")' \
+    -vt Subj 's(Subj)'                                       \
+    -Y Z                                                     \
+    -prediction pred.txt  
