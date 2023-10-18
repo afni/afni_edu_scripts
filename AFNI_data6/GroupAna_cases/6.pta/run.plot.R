@@ -1,4 +1,7 @@
 # plot predicted profile from run.pta1.txt
+
+
+
 dd <- read.table('result1-prediction.txt', header=T)
 require(ggplot2)
 dev.new(width=6, height=4)
