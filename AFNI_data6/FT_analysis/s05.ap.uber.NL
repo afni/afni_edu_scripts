@@ -17,7 +17,7 @@ afni_proc.py                                                                 \
     -subj_id                  $subj.NL                                       \
     -blocks                   tshift align tlrc volreg mask blur scale       \
                               regress                                        \
-    -radial_correlate_blocks  tcat volreg                                    \
+    -radial_correlate_blocks  tcat volreg regress                            \
     -copy_anat                Qwarp/anat_warped/anatSS.FT.nii                \
     -anat_has_skull           no                                             \
     -anat_follower            anat_w_skull anat $top_dir/${subj}_anat+orig   \

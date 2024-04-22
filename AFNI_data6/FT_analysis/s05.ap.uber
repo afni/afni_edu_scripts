@@ -17,7 +17,7 @@ afni_proc.py                                                                 \
     -subj_id                  $subj                                          \
     -blocks                   tshift align tlrc volreg mask blur scale       \
                               regress                                        \
-    -radial_correlate_blocks  tcat volreg                                    \
+    -radial_correlate_blocks  tcat volreg regress                            \
     -copy_anat                $top_dir/${subj}_anat+orig                     \
     -dsets                    $top_dir/${subj}_epi_r1+orig.HEAD              \
                               $top_dir/${subj}_epi_r2+orig.HEAD              \
