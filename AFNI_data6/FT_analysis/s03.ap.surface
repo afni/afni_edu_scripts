@@ -8,12 +8,10 @@
 
 afni_proc.py                                                                 \
     -subj_id                  FT.surf                                        \
+    -dsets                    FT/FT_epi_r?+orig.HEAD                         \
+    -copy_anat                FT/FT_anat+orig                                \
     -blocks                   tshift align volreg surf blur scale regress    \
     -radial_correlate_blocks  tcat volreg                                    \
-    -copy_anat                FT/FT_anat+orig                                \
-    -dsets                    FT/FT_epi_r?+orig.HEAD                         \
-    -surf_anat                FT/SUMA/FT_SurfVol.nii                         \
-    -surf_spec                FT/SUMA/std.60.FT_?h.spec                      \
     -tcat_remove_first_trs    2                                              \
     -align_opts_aea           -cost lpc+ZZ                                   \
                               -giant_move                                    \
@@ -21,6 +19,8 @@ afni_proc.py                                                                 \
     -volreg_align_to          MIN_OUTLIER                                    \
     -volreg_align_e2a                                                        \
     -volreg_compute_tsnr      yes                                            \
+    -surf_anat                FT/SUMA/FT_SurfVol.nii                         \
+    -surf_spec                FT/SUMA/std.60.FT_?h.spec                      \
     -blur_size                6                                              \
     -regress_stim_times       FT/AV1_vis.txt FT/AV2_aud.txt                  \
     -regress_stim_labels      vis aud                                        \

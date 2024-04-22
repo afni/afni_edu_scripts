@@ -15,15 +15,15 @@ set top_dir = ${subj}
 # run afni_proc.py to create a single subject processing script
 afni_proc.py                                                                 \
     -subj_id                  $subj.NL                                       \
-    -blocks                   tshift align tlrc volreg mask blur scale       \
-                              regress                                        \
-    -radial_correlate_blocks  tcat volreg regress                            \
-    -copy_anat                Qwarp/anat_warped/anatSS.FT.nii                \
-    -anat_has_skull           no                                             \
-    -anat_follower            anat_w_skull anat $top_dir/${subj}_anat+orig   \
     -dsets                    $top_dir/${subj}_epi_r1+orig.HEAD              \
                               $top_dir/${subj}_epi_r2+orig.HEAD              \
                               $top_dir/${subj}_epi_r3+orig.HEAD              \
+    -copy_anat                Qwarp/anat_warped/anatSS.FT.nii                \
+    -anat_has_skull           no                                             \
+    -anat_follower            anat_w_skull anat $top_dir/${subj}_anat+orig   \
+    -blocks                   tshift align tlrc volreg mask blur scale       \
+                              regress                                        \
+    -radial_correlate_blocks  tcat volreg regress                            \
     -tcat_remove_first_trs    2                                              \
     -align_unifize_epi        local                                          \
     -align_opts_aea           -cost lpc+ZZ                                   \
