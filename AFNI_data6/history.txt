@@ -1,3 +1,6 @@
+12 Apr 2024 [rickr]: 3drefit -newid FT/SUMA/FT_SurfVol.nii
+20 Mar 2024 [rickr]: add regress block to -radial_correlate_blocks
+18 Oct 2023 [gangc]: redo 0.BGA as 1.bga and update run.MSS.txt
 12 Oct 2023 [rickr]: regenerate FT_analysis/results.QC trees
 12 Oct 2023 [gangc]: redo GroupAna_cases tree: dirs, scripts, data
 27 Sep 2023 [rickr]: GroupAna_cases, afni_proc.py, template
