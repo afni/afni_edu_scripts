@@ -287,7 +287,8 @@ set t_thresh = `cdf -p2t fitt 0.001 24`
 # get cluster overlaps from dataset MNI_caez_ml_18+tlrc
 # (first get name of atlas)
 grep -B 1 MNI_caez_ml_18 ~/abin/AFNI_atlas_spaces.niml
-whereami -omask ttr_clust_rois+tlrc -atlas CA_ML_18_MNI > CAEZ_overlaps.txt
+whereami_afni -omask ttr_clust_rois+tlrc -atlas CA_ML_18_MNI \
+   > CAEZ_overlaps.txt
 
 3dROIstats -mask ttr_clust_rois+tlrc -nzvoxels ttest++_result+tlrc
 
