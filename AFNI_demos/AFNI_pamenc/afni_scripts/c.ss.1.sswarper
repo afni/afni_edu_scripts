@@ -28,7 +28,7 @@ endif
 # ----------------------------------------------------------------------
 # do the work
 
-@SSwarper -input $indata_root/$sid/anat/${sid}_T1w.nii.gz       \
+sswarper2 -input $indata_root/$sid/anat/${sid}_T1w.nii.gz       \
           -base MNI152_2009_template_SSW.nii.gz                 \
           -subid $sid                                           \
           -odir .

@@ -193,10 +193,10 @@ if ( $swarm ) then
    echo ""
    echo "++ swarming $#subjs_todo subjects via file $swarmfile"
    echo ""
-   # 12 hours, 6 GB RAM, 10 GB scratch, 4 threads
+   # 4->6 hours, 6 GB RAM, 10 GB scratch, 4 threads
    swarm -f $swarmfile                          \
         -g 6 -t 16                              \
-        --time 4:00:00                          \
+        --time 6:00:00                          \
         # --gres=lscratch:10                    \
         --verbose 2                             \
         --module afni                           \
