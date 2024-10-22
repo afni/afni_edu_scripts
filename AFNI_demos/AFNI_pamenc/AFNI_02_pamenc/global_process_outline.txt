@@ -273,7 +273,7 @@ set t_thresh = `cdf -p2t fitt 0.001 24`
 
 # table
 3dClusterize -mask group_mask.7+tlrc -inset ttest++_result+tlrc \
-   -idat 0 -ithr 1 -NN 1 -clust_nvox 17 -bisided -3.7454 3.7454
+   -idat 0 -ithr 1 -NN 1 -clust_nvox 19 -bisided -3.7454 3.7454
 
 # mask statistical results
 3dcalc -a ttest++_result+tlrc -b group_mask.7+tlrc -expr 'a*b'  \
@@ -281,7 +281,7 @@ set t_thresh = `cdf -p2t fitt 0.001 24`
 
 # make ROI cluster mask
 3dClusterize -mask group_mask.7+tlrc -inset ttest++_result+tlrc \
-   -idat 0 -ithr 1 -NN 1 -clust_nvox 17 -bisided -3.7454 3.7454 \
+   -idat 0 -ithr 1 -NN 1 -clust_nvox 19 -bisided -3.7454 3.7454 \
    -pref_map ttr_clust_rois
 
 # get cluster overlaps from dataset MNI_caez_ml_18+tlrc

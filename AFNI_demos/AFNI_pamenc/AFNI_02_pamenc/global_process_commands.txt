@@ -90,33 +90,36 @@ cat QC/files_ClustSim/ClustSim.ACF.NN1_bisided.1D
 # check p=0.001 t-stat threshold (symmetric, pos/neg)
 cdf -p2t fitt 0.001 24
 
+# so will cluster group results as |t| > 3.7454, nvox >= 19 ...
+
 # --------------------------------------------------
 # look at group results
 cd group_analysis.9.g_bipolar.paired.T-C
 ls -l
 
-# can run afni, p=0.001, cluterize bi-sided (NN1, 17), rpt, 3dclust
+# can run afni, p=0.001, cluterize bi-sided (NN1, 19), rpt, 3dclust
 # (this is not yet masked)
 afni
 
 # --------------------------------------------------
 # correct to get cluster-level significance
-# (|t| > 3.7454, nvox >= 17)
+# (|t| > 3.7454, nvox >= 19)
 
 3dClusterize -mask group_mask.7+tlrc -inset ttest++_result+tlrc \
-   -idat 0 -ithr 1 -NN 1 -clust_nvox 17 -bisided -3.7454 3.7454
+   -idat 0 -ithr 1 -NN 1 -clust_nvox 19 -bisided -3.7454 3.7454
 
 3dcalc -a ttest++_result+tlrc -b group_mask.7+tlrc -expr 'a*b'  \
        -prefix ttr_masked
 
 3dClusterize -mask group_mask.7+tlrc -inset ttest++_result+tlrc \
-   -idat 0 -ithr 1 -NN 1 -clust_nvox 17 -bisided -3.7454 3.7454 \
+   -idat 0 -ithr 1 -NN 1 -clust_nvox 19 -bisided -3.7454 3.7454 \
    -pref_map ttr_clust_rois
 
 # --------------------------------------------------
 # what regions do these clusters overlap?
 # (e.g. in MNI_caez_ml_18+tlrc)
-grep -B 1 MNI_caez_ml_18 ~/abin/AFNI_atlas_spaces.niml
+grep -B 1 MNI_caez_ml_18 \
+     `afni_system_check.py -disp_abin`/AFNI_atlas_spaces.niml
 
 whereami_afni -omask ttr_clust_rois+tlrc -atlas CA_ML_18_MNI
 
