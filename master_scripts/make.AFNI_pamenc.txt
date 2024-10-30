@@ -1,0 +1,71 @@
+
+# ===========================================================================
+# outline (almost fully executable) for creating AFNI_demos/AFNI_pamenc tree
+# ===========================================================================
+
+set dsrc = /data/NIMH_SSCC/rickr/UCLA.pamenc
+cd $dsrc
+set ddest = ~/data.NIMH_SSCC/rickr/tmp/PAMENC
+mkdir $ddest
+set dsync = /data/NIMH_SSCC/rickr/tmp/PAMENC/tmp
+
+# ------------------------------------------------------------
+# note git tree for AFNI_pamenc
+set gitroot = ~/data.NIMH_SSCC/rickr/tmp/git
+cd $gitroot
+git clone https://github.com/afni/afni_edu_scripts
+set dgit = $gitroot/afni_edu_scripts/AFNI_demos/AFNI_pamenc
+cd -
+
+# ------------------------------------------------------------
+# get lots of data
+tcsh ~/data.NIMH_SSCC/rickr/tmp/sync/ss
+     # syncing from: /data/NIMH_SSCC/rickr/UCLA.pamenc/AFNI
+     #           to: /data/NIMH_SSCC/rickr/tmp/PAMENC/tmp
+
+# BRIK files are separate (get group_mask and REML results)
+cd $dsrc/derivatives/AFNI_02_pamenc
+tar cfz sub.stats.BRIKs.tgz \
+        QC/group_mask.7+tlrc.BRIK.gz sub-*/*.results/stats.sub*REML+tlrc.BRIK*
+cd -
+
+# move the non-dset results here, and then get the BRIKs
+cd $ddest
+mv $dsync/AFNI/derivatives/AFNI_02_pamenc .
+cd AFNI_02_pamenc
+tar xvfz $dsrc/derivatives/AFNI_02_pamenc/sub.stats.BRIKs.tgz
+
+# and get the template
+set template = MNI152_2009_template_SSW.nii.gz
+cp -p `@FindAfniDsetPath $template`/$template QC
+
+# go back to start
+cd $dsrc
+
+# ------------------------------------------------------------
+# afni_scripts
+
+cd $dsync/AFNI/afni_scripts
+mkdir $ddest/afni_scripts
+cp -p [bcpr].* $ddest/afni_scripts
+cd -
+
+# ****** sync scripts with git *******
+
+@diff.files [bcpr].* $dgit/afni_scripts
+
+cd -
+
+# ------------------------------------------------------------
+# BIDS_input, have entire tree in git now (no binary data, but hdr)
+
+cp -rp $dgit/BIDS_input $ddest
+
+
+# ======================================================================
+# for global_process_*.txt
+
+# get git files
+cp -p $dgit/BIDS_input/participants.short.tsv QC
+cp -p $dgit/AFNI_02_pamenc/* .
+
