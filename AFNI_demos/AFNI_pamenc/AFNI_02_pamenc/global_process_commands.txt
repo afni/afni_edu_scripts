@@ -14,7 +14,8 @@ afni_open -e proc.sub-60078
 
 ls -l sub-60078.results
 cat sub-60078.results/out.ss_review*.txt
-afni_open -b sub-60078.results/QC_sub-60078/index.html
+open_apqc.py -infiles sub-60078.results/QC_sub-60078/index.html
+# alternative afni_open -b sub-60078.results/QC_sub-60078/index.html
 cd ..
 
 # --------------------------------------------------
