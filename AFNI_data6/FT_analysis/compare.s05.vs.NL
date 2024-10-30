@@ -57,7 +57,7 @@ afni_proc.py                                                                 \
     -regress_est_blur_errts                                                  \
     -regress_run_clustsim     no                                             \
     -html_review_style        basic                                          \
-    -execute
+    -execute   \
                \
                \
    -compare_opts_vs_opts    \
