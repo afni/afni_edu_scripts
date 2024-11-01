@@ -9,6 +9,9 @@ The contents of this directory include:
    s04.cmd.usubj        - uber_subject.py command: to match bootcamp
                         * this also processes the data under ~/subject_results
    s05.ap.uber          - AP command: produced by s04.cmd.usubj
+   s05.ap.uber.NL       - AP command: same as s05*uber, but using sswarper2's
+                          nonlinear warping results for better template 
+                          alignment
    s06.ap.rest          - AP command: example 10 with 3 runs
    s07.ap.rest.11       - AP command: example 11
    s09.cleanup          - delete results of scripts
