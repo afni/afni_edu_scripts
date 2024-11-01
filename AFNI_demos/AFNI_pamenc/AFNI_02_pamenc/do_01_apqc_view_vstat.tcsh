@@ -1,8 +1,9 @@
 #!/bin/tcsh
 
-# Construct a list of all subjects to view-- well, a sublist for no
-# deep reason...
-set all_files = `\ls sub-600[678]*/*.results/QC_*/index.html`
+# Construct a list of all subject APQC HTML reports to view.  NB: only
+# a subset of sub-*/ directories here actually contain the full QC_*/
+# report directories.
+set all_files = ( sub-*/*.results/QC_*/index.html )
 
 # open several APQC HTMLs together, and have each "jump to" the vstat
 # section:
