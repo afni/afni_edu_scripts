@@ -9,7 +9,7 @@
 set sub = FT
 
 # This is the input subject T1-weighted anatomical dataset
-set anat_dset = ${sub}_anat+orig.HEAD
+set anat_dset = ../${sub}/${sub}_anat+orig.HEAD
 
 # If it does not exist, complain and quit
 if( ! -f $anat_dset )then
