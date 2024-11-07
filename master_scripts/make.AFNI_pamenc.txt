@@ -54,7 +54,6 @@ cd -
 
 @diff.files [bcpr].* $dgit/afni_scripts
 
-cd -
 
 # ------------------------------------------------------------
 # BIDS_input, have entire tree in git now (no binary data, but hdr)
@@ -65,7 +64,29 @@ cp -rp $dgit/BIDS_input $ddest
 # ======================================================================
 # for global_process_*.txt
 
+cd $ddest/AFNI_02_pamenc
+
 # get git files
 cp -p $dgit/BIDS_input/participants.short.tsv QC
 cp -p $dgit/AFNI_02_pamenc/* .
+
+
+# ======================================================================
+# now do extra cleanup to reduce the size
+# (incorporating this earlier would mean altering afni_scripts)
+
+   cd $ddest/AFNI_02_pamenc
+
+   # change all.EPI.vr.tcat to be scaled shorts, rather than floats
+   cd QC
+   3dcalc -a all.EPI.vr.tcat+tlrc -expr a -datum short -prefix all.EPI
+   3drename all.EPI all.EPI.vr.tcat
+   cd ..
+
+   # run the group t-test and remove all of the REML BRIK files
+   tcsh -x run.ggc.9.bipolar.T-C | & tee out.run.ggc.9.bipolar.T-C
+   rm sub-*/*.results/*BRIK*
+
+   rm -fr sub*/*.results/QC_sub-1*
+   rm -fr sub*/*.results/QC_sub-600[0-6]*
 
