@@ -1,3 +1,5 @@
+08 Nov 2024 [rickr/ptaylor]: add afni/bad_scripts
+   - regen s15.proc.FT.uber, clean Qwarp, sswarper2 in s00.warper
 12 Apr 2024 [rickr]: 3drefit -newid FT/SUMA/FT_SurfVol.nii
 20 Mar 2024 [rickr]: add regress block to -radial_correlate_blocks
 18 Oct 2023 [gangc]: redo 0.BGA as 1.bga and update run.MSS.txt
