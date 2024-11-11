@@ -1,3 +1,4 @@
+07 Nov 2024 [rickr]: shrank AFNI_pamenc tree
 22 Oct 2024 [rickr]: regenerated the AFNI_pamenc tree
 29 Oct 2020 [taylorp]: updated scripts under FATCAT_DEMO
 22 Oct 2019 [discoraj]: added Cluster Explorer Demo
