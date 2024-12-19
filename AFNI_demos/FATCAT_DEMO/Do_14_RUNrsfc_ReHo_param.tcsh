@@ -47,5 +47,3 @@
     -overwrite
 
 
-
-\gzip FMRI/*BRIK

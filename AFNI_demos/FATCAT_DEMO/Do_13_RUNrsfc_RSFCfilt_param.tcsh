@@ -33,8 +33,6 @@
     REST_proc_unfilt.nii.gz     \
     -overwrite
 
-\gzip  FMRI/REST_filt*BRIK
-
 # In case of (mild-moderate) censoring, then this charmingly named set
 # of programs can be a way forward; the censoring file can be added in
 # different ways: checking for volumes of all zero values (default),
