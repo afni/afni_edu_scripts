@@ -1,3 +1,4 @@
+19 Dec 2024 [taylorp]: remove gzip from FATCAT_DEMO/Do_1[34]*.tcsh
 07 Nov 2024 [rickr]: shrank AFNI_pamenc tree
 22 Oct 2024 [rickr]: regenerated the AFNI_pamenc tree
 29 Oct 2020 [taylorp]: updated scripts under FATCAT_DEMO
