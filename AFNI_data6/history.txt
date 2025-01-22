@@ -1,3 +1,4 @@
+22 Jan 2025 [rickr]: add AV2_aud_AM2.txt
 08 Nov 2024 [rickr/ptaylor]: add afni/bad_scripts
    - regen s15.proc.FT.uber, clean Qwarp, sswarper2 in s00.warper
 12 Apr 2024 [rickr]: 3drefit -newid FT/SUMA/FT_SurfVol.nii
