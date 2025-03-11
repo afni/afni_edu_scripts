@@ -13,6 +13,7 @@ afni_proc.py                                                                 \
     -blocks                   tshift align volreg surf blur scale regress    \
     -radial_correlate_blocks  tcat volreg                                    \
     -tcat_remove_first_trs    2                                              \
+    -align_unifize_epi        local                                          \
     -align_opts_aea           -cost lpc+ZZ                                   \
                               -giant_move                                    \
                               -check_flip                                    \
