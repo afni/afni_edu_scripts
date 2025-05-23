@@ -1,0 +1,57 @@
+#################################
+## boot camp Jan 2025
+## dataTable examples
+## copy and paste only (don't execute the whole file...)
+## run from the scripts_3dMVM directory
+
+####################
+## good one 
+
+## look at a good dataTable (or just open with excel...)
+open ../data_dataTables/00_test1_good_5x5x5.tsv
+
+## run good example
+tcsh 00_test1_good_5x5x5.tcsh
+
+## check log
+cat ../results/00_test1_good_5x5x5_MVM_log.txt
+
+####################
+## bad ones 
+
+## missing some entries in the dataTable file
+tcsh 01_test1_bad_not_rect_5x5x5.tcsh
+open ../data_dataTables/01_test1_bad_not_rect_5x5x5.tsv
+
+## some files missing or names are wrong
+tcsh 02_test1_bad_file_5x5x5.tcsh
+open ../data_dataTables/02_test1_bad_file_5x5x5.tsv
+
+## some files are on a different grid
+tcsh 03_test1_bad_grid_5x5x5.tcsh
+open ../data_dataTables/03_test1_bad_grid_5x5x5.tsv
+3dinfo ../subjects_5x5x5/sub-0010.rest.cg25.1mm.nii.gz
+3dinfo ../subjects_5x5x5/subj-0046.rest.cg25.3mm.5x5x5.nii.gz
+
+## spelling counts
+tcsh 04_test1_bad_InputFile_misspelled_5x5x5.tcsh
+
+## can't have multiple volumes selected
+tcsh 05_test1_bad_multi_vol_grid_5x5x5.tcsh
+3dinfo ../subjects_5x5x5/sub-0011.rest.cg25.3mm.5x5x5.multi_vol.nii.gz
+open ../data_dataTables/05_test1_bad_multi_vol_grid_5x5x5.tsv
+
+## no duplicate input files
+tcsh 06_test1_bad_dup_InputFiles_5x5x5.tcsh
+open ../data_dataTables/06_test1_bad_dup_InputFiles_5x5x5.tsv
+
+## warnings on dataTable variables
+tcsh 07_test1_good_warnings_5x5x5.tcsh
+cat ../results/07_test1_good_warnings_5x5x5_MVM_log.txt
+open ../data_dataTables/07_test1_good_warnings_5x5x5.tsv
+
+## within subject model warning
+tcsh 08_test2_warn_files_per_subj_5x5x5.tcsh
+cat ../results/08_test2_warn_files_per_subj_MVM_5x5x5_log.txt
+open ../data_dataTables/08_test2_warn_files_per_subj_5x5x5.tsv
+

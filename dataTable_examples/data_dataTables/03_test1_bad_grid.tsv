@@ -1,0 +1,12 @@
+Subj	score	group	group2	group3	rt	consented	handedness	InputFile
+subj-0044	1	A	A	A	10.0045	Yes	1	subjects_5x5x5/sub-0010.rest.cg25.1mm.nii.gz
+subj-0046	2	B	B	B	11.0045	No	2	subjects_5x5x5/subj-0046.rest.cg25.3mm.5x5x5.nii.gz
+subj-0049	3	A	C	A	12.0045	Yes	1	subjects_5x5x5/subj-0049.rest.cg25.3mm.5x5x5.nii.gz
+subj-0053	4	B	A	B	13.0045	No	2	subjects_5x5x5/subj-0053.rest.cg25.3mm.5x5x5.nii.gz
+subj-0060	5	A	B	A	14.0045	Yes	1	subjects_5x5x5/subj-0060.rest.cg25.3mm.5x5x5.nii.gz
+subj-0061	6	B	C	B	15.0045	No	1	subjects_5x5x5/subj-0061.rest.cg25.3mm.5x5x5.nii.gz
+subj-0064	7	A	A	A	16.0045	Yes	1	subjects_5x5x5/subj-0064.rest.cg25.3mm.5x5x5.nii.gz
+subj-0073	8	B	B	B	17.0045	No	2	subjects_5x5x5/subj-0073.rest.cg25.3mm.5x5x5.nii.gz
+subj-0075	9	A	C	A	18.0045	No	1	subjects_5x5x5/sub-0010.rest.ins.1mm.nii.gz
+subj-0076	10	B	A	B	19.0045	No	1	subjects_5x5x5/subj-0076.rest.cg25.3mm.5x5x5.nii.gz
+subj-0079	11	A	B	A	20.0045	Yes	2	subjects_5x5x5/subj-0079.rest.cg25.3mm.5x5x5.nii.gz
