@@ -1,4 +1,4 @@
-# The data table is stored in a text file tbl.txt!!!
+# ** The data table is stored in a text file tbl.txt **
 # 1 group with 17 subjects
 # 3 conditions: Baseline, Ket, Placebo
 # Mising data with some subject
@@ -21,15 +21,21 @@
 #  S122        1   1       1
 #  S123        1   1       1
 
-3dLME -prefix result.LME2_table -jobs 2 \
--model "Cond" \
--SS_type 3 \
--ranEff '~1' \
--num_glt 5 \
--gltLabel 1 'Ket' -gltCode                   1 'Cond : 1*Ket' \
--gltLabel 2 'Ket-Placebo' -gltCode           2 'Cond : 1*Ket -1*Placebo' \
--gltLabel 3 'Ket-Placebo-Baseline' -gltCode  3 'Cond : 1*Ket -1*Placebo -1*Baseline' \
--gltLabel 4 'Ket-Baseline' -gltCode          4 'Cond : 1*Ket -1*Baseline' \
--gltLabel 5 'Ket-Placebo+Baseline2' -gltCode 5 'Cond : 1*Ket -1*Placebo +1*Baseline' \
--dataTable \
-@tbl.txt
+3dLME                                                                        \
+    -prefix     result.LME2_table                                            \
+    -jobs       2                                                            \
+    -model      "Cond"                                                       \
+    -SS_type    3                                                            \
+    -ranEff     '~1'                                                         \
+    -num_glt    5                                                            \
+    -gltLabel   1 'Ket'                                                      \
+    -gltCode    1 'Cond : 1*Ket'                                             \
+    -gltLabel   2 'Ket-Placebo'                                              \
+    -gltCode    2 'Cond : 1*Ket -1*Placebo'                                  \
+    -gltLabel   3 'Ket-Placebo-Baseline'                                     \
+    -gltCode    3 'Cond : 1*Ket -1*Placebo -1*Baseline'                      \
+    -gltLabel   4 'Ket-Baseline'                                             \
+    -gltCode    4 'Cond : 1*Ket -1*Baseline'                                 \
+    -gltLabel   5 'Ket-Placebo+Baseline2'                                    \
+    -gltCode    5 'Cond : 1*Ket -1*Placebo +1*Baseline'                      \
+    -dataTable  @tbl.txt
