@@ -13,7 +13,7 @@ set sdir_ssw  = SSW/${subj}            # sswarper2-proc anatomical data
 
 # ============================================================================
 
-# run afni_proc.py to create a single subject processing script
+# run afni_proc.py to create (and run) a single subject processing script
 
 afni_proc.py                                                                 \
     -subj_id                  ${subj}.affine                                 \

@@ -1,7 +1,7 @@
 #!/usr/bin/env tcsh
 
 
-# convert the event TSV files into AFNI timing format
+# convert event TSV files into AFNI timing format
 timing_tool.py                            \
     -multi_timing_ncol_tsv  sub-000*.tsv  \
     -write_multi_timing     stim.         \

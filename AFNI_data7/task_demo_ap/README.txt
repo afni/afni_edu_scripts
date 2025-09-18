@@ -1,6 +1,5 @@
 This tree is an updated form of AFNI_data6.
 
-task_demo_ap
    do_01_gtkyd.tcsh           - script : getting to know your data
    do_14_timing.tcsh          - script : TSV to AFNI timing conversion
    do_20_ap_simple.tcsh       - script : ap_run_simple_rest.tcsh command
