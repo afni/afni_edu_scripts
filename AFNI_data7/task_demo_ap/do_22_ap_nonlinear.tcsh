@@ -1,6 +1,6 @@
 #!/usr/bin/env tcsh
 
-# Run AP: single subject processing, applying nonlinear warp from sswarper2
+# Run AP: full single subject processing, applying nonlinear warp from sswarper2
 
 # set subject and group identifiers
 set subj  = sub-000

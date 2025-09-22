@@ -5,16 +5,21 @@
 # gtkyd_check.py         - tabulate properties from EPI datasets
 # gen_ss_review_table.py - check properties for problems/inconsistencies
 
-# ================ check and compare EPI properties ========================
 
-# Generate: make table+supplements of properties from FMRI dsets
+# ================================= EPI ===================================
+
+echo ""
+echo "++ Generate: make table+supplements of properties from FMRI dsets"
+echo ""
+
 gtkyd_check.py                                            \
     -infiles           sub-000/func/sub-*task-av*nii*     \
     -outdir            sub-000.gtkyd/all_epi
 
 echo ""
+echo "++ Review: query for specific data properties that we want to avoid"
+echo ""
 
-# Review: query for specific data properties that we want to avoid
 gen_ss_review_table.py                                    \
     -outlier_sep space                                    \
     -infiles            sub-000.gtkyd/all_epi/dset*txt    \
@@ -27,18 +32,24 @@ gen_ss_review_table.py                                    \
     |& tee              sub-000.gtkyd/all_epi_gssrt.dat
 
 
-# comment the next line out to also run for the anatomical data
+# comment the next line out to also run cmds for the anatomical data
 exit 0
 
-# ================ check and compare T1w properties ========================
 
+# ================================= T1w ===================================
 
-# Generate: make table+supplements of properties from anatomical dsets
+echo ""
+echo "++ Generate: make table+supplements of properties from anatomical dsets"
+echo ""
+
 gtkyd_check.py                                            \
     -infiles           sub-000/anat/sub-*T1w*nii*         \
     -outdir            sub-000.gtkyd/all_anat
 
-# Review: query for specific data properties that we want to avoid
+echo ""
+echo "++ Review: query for specific data properties that we want to avoid"
+echo ""
+
 gen_ss_review_table.py                                    \
     -outlier_sep space                                    \
     -infiles            sub-000.gtkyd/all_anat/dset*txt   \
