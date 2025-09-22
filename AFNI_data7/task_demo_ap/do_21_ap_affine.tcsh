@@ -21,6 +21,8 @@ afni_proc.py                                                                  \
                               ${sdir_func}/${subj}_task-av_run-02_bold.nii.gz \
                               ${sdir_func}/${subj}_task-av_run-03_bold.nii.gz \
     -copy_anat                ${sdir_ssw}/anatSS.${subj}.nii                  \
+    -anat_has_skull           no                                              \
+    -anat_follower            anat_w_skull anat ${sdir_ssw}/anatU.${subj}.nii \
     -blocks                   tshift align tlrc volreg mask blur scale        \
                               regress                                         \
     -radial_correlate_blocks  tcat volreg regress                             \
