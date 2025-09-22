@@ -9,7 +9,7 @@ set gname = horses
 # set subject-level directories
 set sdir_func = ${subj}/func           # dir with basic functional data
 set sdir_anat = ${subj}/anat           # dir with basic anatomical data
-set sdir_ssw  = SSW/${subj}            # sswarper2-proc anatomical data
+set sdir_ssw  = SSW                    # sswarper2-proc anatomical data
 set sdir_suma = SUMA                   # FreeSurfer results imported into SUMA
 
 # ============================================================================
