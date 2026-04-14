@@ -1,3 +1,5 @@
+30 Apr 2026 [rickr]: init GroupAna_cases/gen_datatables/all_result tree
+30 Jan 2026 [rickr]: rename GroupAna_cases results to save.*
 22 Jan 2025 [rickr]: add AV2_aud_AM2.txt
 08 Nov 2024 [rickr/ptaylor]: add afni/bad_scripts
    - regen s15.proc.FT.uber, clean Qwarp, sswarper2 in s00.warper

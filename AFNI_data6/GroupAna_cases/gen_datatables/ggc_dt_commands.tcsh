@@ -11,7 +11,7 @@ set sstr = '{0044,0046,0049,0053,0060,0061,0064,0073,0075,0076}'
 
 # ----------------------------------------------------------------------
 # create a directory tree for example F1, and then run F1
-mkdir all_results
+mkdir -p all_results
 touch all_results/sub-$sstr.nii.gz
 
    gen_group_command.py                        \
