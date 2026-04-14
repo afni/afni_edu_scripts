@@ -5,14 +5,10 @@
 #     *** this is tcsh syntax (not bash, not zsh) ***
 
 # ----------------------------------------------------------------------
-# make lists of beta labels and subject codes
-set bstr = '{B,A}_{R,G}_T{1,2,3}'
-set sstr = '{0044,0046,0049,0053,0060,0061,0064,0073,0075,0076}'
+# data tree created as -help describes, now in make_data_tree.tcsh
 
 # ----------------------------------------------------------------------
-# create a directory tree for example F1, and then run F1
-mkdir -p all_results
-touch all_results/sub-$sstr.nii.gz
+# example F1   - one dataset per subject
 
    gen_group_command.py                        \
       -command datatable                       \
@@ -27,9 +23,7 @@ touch all_results/sub-$sstr.nii.gz
       -write_script dt_1.txt
 
 # ----------------------------------------------------------------------
-# create a directory tree for example F2, and then run F2
-mkdir -p all_results/data.$bstr
-touch all_results/data.$bstr/sub-$sstr.nii.gz
+# example F2   - one volume per beta per subject
 
    gen_group_command.py                        \
       -command datatable                       \
@@ -51,11 +45,7 @@ touch all_results/data.$bstr/sub-$sstr.nii.gz
       -write_script dt_2.txt
 
 # ----------------------------------------------------------------------
-# create an additional attributes file, and then run F3
-echo Subj Group ValA ValB > subject_attrs.tsv
-foreach subj ( $sstr )
-    echo sub-$subj G_$subj VA_$subj VB_$subj >> subject_attrs.tsv
-end
+# example F3   - same as F2, but with extra TSV file
 
    gen_group_command.py                        \
       -command datatable                       \
@@ -76,5 +66,4 @@ end
       -dsets all_results/data.A_G_T2/sub*.gz   \
       -dsets all_results/data.A_G_T3/sub*.gz   \
       -write_script dt_3.txt
-
 
