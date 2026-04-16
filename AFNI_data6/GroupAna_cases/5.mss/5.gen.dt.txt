@@ -1,0 +1,17 @@
+gen_group_command.py                                                         \
+    -command         datatable                                               \
+    -dt_tsv          5.subject_attrs.txt                                     \
+    -dt_factor_list  TR 0 1 2 3 4 5 6 7 8 9 10 11                            \
+    -dsets           data/s*.b2+tlrc*.gz                                     \
+    -dsets           data/s*.b3+tlrc*.gz                                     \
+    -dsets           data/s*.b4+tlrc*.gz                                     \
+    -dsets           data/s*.b5+tlrc*.gz                                     \
+    -dsets           data/s*.b6+tlrc*.gz                                     \
+    -dsets           data/s*.b7+tlrc*.gz                                     \
+    -dsets           data/s*.b8+tlrc*.gz                                     \
+    -dsets           data/s*.b9+tlrc*.gz                                     \
+    -dsets           data/s*.b10+tlrc*.gz                                    \
+    -dsets           data/s*.b11+tlrc*.gz                                    \
+    -dsets           data/s*.b12+tlrc*.gz                                    \
+    -dsets           data/s*.b13+tlrc*.gz                                    \
+    -write_script    5.MSS.dt.txt

@@ -1,0 +1,23 @@
+# 2 groups: 44 controls (CG) & 43 patients (PG)
+# HDR estimated with 12 time points under incongruent condition at 
+# individual level
+# TR: 1.25 s; sex as a covariate; 27 voxels in left postcentral gyrus
+# input stored in table hdr.tbl
+# predicted HDRs specified in hdrPred.tbl
+
+3dMSS                                                                        \
+    -prefix      result.MSS.dt                                               \
+    -jobs        2                                                           \
+    -lme         'sex+s(TR)+s(TR,by=grp)'                                    \
+    -ranEff      'list(Subj=~1)'                                             \
+    -sdiff       'grp'                                                       \
+    -qVars       'sex,grp,TR'                                                \
+    -prediction  @MSSpred.tbl                                                \
+    -dataTable   @5.MSS.dt.txt
+
+3dbucket -prefix CG-hdr.dt       result.MSS.dt+tlrc'[7:95(2)]'
+3dbucket -prefix CG-hdr.dt.se    result.MSS.dt+tlrc'[8:96(2)]'
+3dbucket -prefix PG-hdr.dt       result.MSS.dt+tlrc'[97:185(2)]'
+3dbucket -prefix PG-hdr.dt.se    result.MSS.dt+tlrc'[98:186(2)]'
+3dbucket -prefix Gdiff-hdr.dt    result.MSS.dt+tlrc'[187:275(2)]'
+3dbucket -prefix Gdiff-hdr.dt.se result.MSS.dt+tlrc'[188:276(2)]'

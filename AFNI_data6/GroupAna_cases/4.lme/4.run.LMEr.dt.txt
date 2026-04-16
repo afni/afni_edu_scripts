@@ -1,0 +1,27 @@
+# 2-way within-individual ANOVA 
+# factor 1: Category with 3 levels (A, H, T)
+# factor 2: Affect with 2 levels (Neg, Neut)
+# 18 participants
+# analyzed through hierarchical modeling using 3dLMEr
+
+3dLMEr                                                                       \
+    -prefix     result.LMEr.dt                                               \
+    -jobs       2                                                            \
+    -model      'Affect*Category+(1|Subj)+(1|Affect:Subj)+(1|Category:Subj)' \
+    -gltCode    AvsT         'Category : 1*A -1*T'                           \
+    -gltCode    HvsA         'Category : 1*H -1*A'                           \
+    -gltCode    HvsT         'Category : 1*H -1*T'                           \
+    -gltCode    NegvsNeut      'Affect : 1*Neg -1*Neut'                      \
+    -gltCode    interAvT     'Category : 1*A -1*T Affect : 1*Neg -1*Neut'    \
+    -gltCode    interHvT     'Category : 1*H -1*T Affect : 1*Neg -1*Neut'    \
+    -gltCode    interHvA     'Category : 1*H -1*A Affect : 1*Neg -1*Neut'    \
+    -gltCode    ANegvsANeut    'Affect : 1*Neg -1*Neut Category : 1*A'       \
+    -gltCode    HNegvsHNeut    'Affect : 1*Neg -1*Neut Category : 1*H'       \
+    -gltCode    TNegvsTNeut    'Affect : 1*Neg -1*Neut Category : 1*T'       \
+    -gltCode    ANegvsTNeg   'Category : 1*A -1*T Affect : 1*Neg'            \
+    -gltCode    HNegvsANeg   'Category : 1*H -1*A Affect : 1*Neg'            \
+    -gltCode    HNegvsTNeg   'Category : 1*H -1*T Affect : 1*Neg'            \
+    -gltCode    ANeutvsTNeut 'Category : 1*A -1*T Affect : 1*Neut'           \
+    -gltCode    HNeutvsANeut 'Category : 1*H -1*A Affect : 1*Neut'           \
+    -gltCode    HNeutvsTNeut 'Category : 1*H -1*T Affect : 1*Neut'           \
+    -dataTable  @dt.txt

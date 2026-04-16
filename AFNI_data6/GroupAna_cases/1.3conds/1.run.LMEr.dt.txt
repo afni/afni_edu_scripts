@@ -1,0 +1,32 @@
+# 1 group with 17 subjects
+# 3 conditions: Baseline, Ket, Placebo
+# Mising data with some subject
+#       Baseline Ket Placebo
+#  S101        1   1       0
+#  S102        1   1       1
+#  S105        1   1       1
+#  S107        1   1       1
+#  S108        1   1       1
+#  S109        1   1       1
+#  S110        1   1       1
+#  S111        1   1       0
+#  S112        0   1       1
+#  S113        1   1       1
+#  S115        0   1       1
+#  S116        1   1       0
+#  S118        1   1       1
+#  S120        1   1       1
+#  S121        1   1       0
+#  S122        1   1       1
+#  S123        1   1       1
+
+3dLMEr                                                                        \
+    -prefix     result.LMEr.dt                                                \
+    -jobs       2                                                             \
+    -model      "Cond+(1|Subj)"                                               \
+    -gltCode    'Ket' 'Cond : 1*Ket'                                          \
+    -gltCode    'Ket-Placebo'           'Cond : 1*Ket -1*Placebo'             \
+    -gltCode    'Ket-Placebo-Baseline'  'Cond : 1*Ket -1*Placebo -1*Baseline' \
+    -gltCode    'Ket-Baseline'          'Cond : 1*Ket -1*Baseline'            \
+    -gltCode    'Ket-Placebo+Baseline2' 'Cond : 1*Ket -1*Placebo +1*Baseline' \
+    -dataTable  @1.dt.txt

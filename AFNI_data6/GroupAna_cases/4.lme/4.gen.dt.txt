@@ -1,0 +1,11 @@
+gen_group_command.py                                                         \
+    -command         datatable                                               \
+    -dt_factor_list  Affect Neg Neut                                         \
+    -dt_factor_list  Category A H T                                          \
+    -dsets           data/ss*.a.neg*.gz                                      \
+    -dsets           data/ss*.h.neg*.gz                                      \
+    -dsets           data/ss*.t.neg*.gz                                      \
+    -dsets           data/ss*.a.neut*.gz                                     \
+    -dsets           data/ss*.h.neut*.gz                                     \
+    -dsets           data/ss*.t.neut*.gz                                     \
+    -write_script    4.dt.txt

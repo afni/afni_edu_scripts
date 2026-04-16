@@ -1,0 +1,7 @@
+gen_group_command.py                                                         \
+    -command         datatable                                               \
+    -dt_factor_list  Cond Ket Placebo Baseline                               \
+    -dsets           Ket/Subject???+tlrc.BRIK.gz                             \
+    -dsets           Placebo/Subject???+tlrc.BRIK.gz                         \
+    -dsets           Baseline/Subject???+tlrc.BRIK.gz                        \
+    -write_script    1.dt.txt

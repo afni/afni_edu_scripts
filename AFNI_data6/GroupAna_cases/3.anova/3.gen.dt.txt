@@ -1,0 +1,14 @@
+gen_group_command.py                                                         \
+    -command         datatable                                               \
+    -dt_factor_list  Condition House Face                                    \
+    -dt_factor_list  Image Simple Complex                                    \
+    -dt_factor_list  Clarity Simple Comple                                   \
+    -dsets           data/G?S??.niml.dset'[0]'                               \
+    -dsets           data/G?S??.niml.dset'[1]'                               \
+    -dsets           data/G?S??.niml.dset'[2]'                               \
+    -dsets           data/G?S??.niml.dset'[3]'                               \
+    -dsets           data/G?S??.niml.dset'[4]'                               \
+    -dsets           data/G?S??.niml.dset'[5]'                               \
+    -dsets           data/G?S??.niml.dset'[6]'                               \
+    -dsets           data/G?S??.niml.dset'[7]'                               \
+    -write_script    3.dt.txt
