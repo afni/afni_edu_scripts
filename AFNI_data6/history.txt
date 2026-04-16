@@ -1,6 +1,8 @@
 16 Apr 2026 [gangc]: add GroupAna_cases gen_group_command.py scripts
 14 Apr 2026 [rickr]: init GroupAna_cases/gen_datatables/all_result tree
 30 Jan 2026 [rickr]: rename GroupAna_cases results to save.*
+22 May 2025 [rickr]: add GroupAna_cases/gen_datatables/ggc_dt_commands.tcsh
+            [ptaylor]: update results.QC*/index.html
 22 Jan 2025 [rickr]: add AV2_aud_AM2.txt
 08 Nov 2024 [rickr/ptaylor]: add afni/bad_scripts
    - regen s15.proc.FT.uber, clean Qwarp, sswarper2 in s00.warper
@@ -23,7 +25,7 @@
    - added results.QC_FT.05.NL and results.QC_FT.rest.11 QC dirs
    - updated FT/SUMA and Qwarp trees
 23 Jan 2020 [rickr]: added demo_3_ROIs_n_data
-30 Dec 2019 [rickr]: updated s07/s17 for erode 
+30 Dec 2019 [rickr]: updated s07/s17 for erode
 28 Oct 2019 [ptaylor]: updated FT_analysis/results.QC_FT.05
 24 May 2019 [ptaylor]: updated FT_analysis/results.QC_FT.05
 29 Apr 2019 [rickr]: added afni/AV_r1.make_reg.tcsh
@@ -86,4 +88,4 @@ data generously donated from:
    Nath, A.R., Beauchamp, M.S., 2011.
    Dynamic changes in superior temporal sulcus connectivity during
       perception of noisy audiovisual speech.
-   J. Neurosci. 31 (5), 1704–1714 
+   J. Neurosci. 31 (5), 1704–1714
