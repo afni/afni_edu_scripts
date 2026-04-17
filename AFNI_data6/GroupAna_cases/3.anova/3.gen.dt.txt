@@ -1,25 +1,26 @@
 # For the given -dt_factor_list options, the expected order
-# of the -dsets options would be (based on row-major order of
+# of sub-brick indices would be (based on row-major order of
 # the factor_list options):
 #
-# -dsets for House I_Simple  C_Simple
-# -dsets for House I_Simple  C_Complex
-# -dsets for House I_Complex C_Simple
-# -dsets for House I_Complex C_Complex
-# -dsets for Face  I_Simple  C_Simple
-# -dsets for Face  I_Simple  C_Complex
-# -dsets for Face  I_Complex C_Simple
-# -dsets for Face  I_Complex C_Complex
+#    factor set                  dataset index
+#    -------------------------   -------------
+#    House I_Simple  C_Simple    0
+#    House I_Simple  C_Complex   1
+#    House I_Complex C_Simple    2
+#    House I_Complex C_Complex   3
+#    Face  I_Simple  C_Simple    4
+#    Face  I_Simple  C_Complex   5
+#    Face  I_Complex C_Simple    6
+#    Face  I_Complex C_Complex   7
+#
 
-gen_group_command.py                                           \
-   -command datatable                                          \
-   -keep_dirent_pre                                            \
-   -dt_factor_list Condition House Face                        \
-   -dt_factor_list Image Simple Complex                        \
-   -dt_factor_list Clarity Simple Comple                       \
-   -subs_betas                                                 \
-      'PeSS#0_Coef' 'PeSC#0_Coef' 'PeCS#0_Coef' 'PeCC#0_Coef'  \
-      'PrSS#0_Coef' 'PrSC#0_Coef' 'PrCS#0_Coef' 'PrCC#0_Coef'  \
-   -dsets data/G?S??.niml.dset                                 \
+gen_group_command.py                      \
+   -command datatable                     \
+   -keep_dirent_pre                       \
+   -dt_factor_list Condition House Face   \
+   -dt_factor_list Image Simple Complex   \
+   -dt_factor_list Clarity Simple Comple  \
+   -subs_betas 0 1 2 3 4 5 6 7            \
+   -dsets data/G?S??.niml.dset            \
    -write_script 3.dt.txt
 
