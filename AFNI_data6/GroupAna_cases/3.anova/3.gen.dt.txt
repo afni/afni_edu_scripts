@@ -19,7 +19,7 @@ gen_group_command.py                      \
    -keep_dirent_pre                       \
    -dt_factor_list Condition House Face   \
    -dt_factor_list Image Simple Complex   \
-   -dt_factor_list Clarity Simple Comple  \
+   -dt_factor_list Clarity Simple Complex \
    -subs_betas 0 1 2 3 4 5 6 7            \
    -dsets data/G?S??.niml.dset            \
    -write_script 3.dt.txt
