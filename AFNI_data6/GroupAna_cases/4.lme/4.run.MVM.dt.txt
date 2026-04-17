@@ -1,45 +1,28 @@
-# 2-way within-individual ANOVA  
+# 2-way within-individual ANOVA
 # factor 1: Category with 3 levels (A, H, T)
 # factor 2: Affect with 2 levels (Neg, Neut)
 # 18 participants
 # analyzed using 3dMVM
 
+3dMVM                                                                                  \
+    -prefix result.MVM.dt -jobs 2                                                      \
+    -wsVars 'Affect*Category'                                                          \
+    -num_glt 16                                                                        \
+    -gltLabel 1 AvsT           -gltCode 1 'Category : 1*A -1*T'                        \
+    -gltLabel 2 HvsA           -gltCode 2 'Category : 1*H -1*A'                        \
+    -gltLabel 3 HvsT           -gltCode 3 'Category : 1*H -1*T'                        \
+    -gltLabel 4 NegvsNeut      -gltCode 4 'Affect   : 1*Neg -1*Neut'                   \
+    -gltLabel 5 interAvT       -gltCode 5 'Category : 1*A -1*T Affect : 1*Neg -1*Neut' \
+    -gltLabel 6 interHvT       -gltCode 6 'Category : 1*H -1*T Affect : 1*Neg -1*Neut' \
+    -gltLabel 7 interHvA       -gltCode 7 'Category : 1*H -1*A Affect : 1*Neg -1*Neut' \
+    -gltLabel 8 ANegvsANeut    -gltCode 8 'Affect : 1*Neg -1*Neut Category : 1*A'      \
+    -gltLabel 9 HNegvsHNeut    -gltCode 9 'Affect : 1*Neg -1*Neut Category : 1*H'      \
+    -gltLabel 10 TNegvsTNeut   -gltCode 10 'Affect : 1*Neg -1*Neut Category : 1*T'     \
+    -gltLabel 11 ANegvsTNeg    -gltCode 11 'Category : 1*A -1*T Affect : 1*Neg'        \
+    -gltLabel 12 HNegvsANeg    -gltCode 12 'Category : 1*H -1*A Affect : 1*Neg'        \
+    -gltLabel 13 HNegvsTNeg    -gltCode 13 'Category : 1*H -1*T Affect : 1*Neg'        \
+    -gltLabel 14 ANeutvsTNeut  -gltCode 14 'Category : 1*A -1*T Affect : 1*Neut'       \
+    -gltLabel 15 HNeutvsANeut  -gltCode 15 'Category : 1*H -1*A Affect : 1*Neut'       \
+    -gltLabel 16 HNeutvsTNeut  -gltCode 16 'Category : 1*H -1*T Affect : 1*Neut'       \
+    -dataTable @4.dt.txt
 
-3dMVM                                                                        \
-    -prefix     result.MVM.dt                                                \
-    -jobs       2                                                            \
-    -wsVars     'Affect*Category'                                            \
-    -num_glt    16                                                           \
-    -gltLabel   1 AvsT                                                       \
-    -gltCode    1 'Category : 1*A -1*T'                                      \
-    -gltLabel   2 HvsA                                                       \
-    -gltCode    2 'Category : 1*H -1*A'                                      \
-    -gltLabel   3 HvsT                                                       \
-    -gltCode    3 'Category : 1*H -1*T'                                      \
-    -gltLabel   4 NegvsNeut                                                  \
-    -gltCode    4 'Affect : 1*Neg -1*Neut'                                   \
-    -gltLabel   5 interAvT                                                   \
-    -gltCode    5 'Category : 1*A -1*T Affect : 1*Neg -1*Neut'               \
-    -gltLabel   6 interHvT                                                   \
-    -gltCode    6 'Category : 1*H -1*T Affect : 1*Neg -1*Neut'               \
-    -gltLabel   7 interHvA                                                   \
-    -gltCode    7 'Category : 1*H -1*A Affect : 1*Neg -1*Neut'               \
-    -gltLabel   8 ANegvsANeut                                                \
-    -gltCode    8 'Affect : 1*Neg -1*Neut Category : 1*A'                    \
-    -gltLabel   9 HNegvsHNeut                                                \
-    -gltCode    9 'Affect : 1*Neg -1*Neut Category : 1*H'                    \
-    -gltLabel   10 TNegvsTNeut                                               \
-    -gltCode    10 'Affect : 1*Neg -1*Neut Category : 1*T'                   \
-    -gltLabel   11 ANegvsTNeg                                                \
-    -gltCode    11 'Category : 1*A -1*T Affect : 1*Neg'                      \
-    -gltLabel   12 HNegvsANeg                                                \
-    -gltCode    12 'Category : 1*H -1*A Affect : 1*Neg'                      \
-    -gltLabel   13 HNegvsTNeg                                                \
-    -gltCode    13 'Category : 1*H -1*T Affect : 1*Neg'                      \
-    -gltLabel   14 ANeutvsTNeut                                              \
-    -gltCode    14 'Category : 1*A -1*T Affect : 1*Neut'                     \
-    -gltLabel   15 HNeutvsANeut                                              \
-    -gltCode    15 'Category : 1*H -1*A Affect : 1*Neut'                     \
-    -gltLabel   16 HNeutvsTNeut                                              \
-    -gltCode    16 'Category : 1*H -1*T Affect : 1*Neut'                     \
-    -dataTable  @dt.txt

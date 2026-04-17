@@ -1,11 +1,16 @@
-gen_group_command.py                                                         \
-    -command         datatable                                               \
-    -dt_factor_list  Affect Neg Neut                                         \
-    -dt_factor_list  Category A H T                                          \
-    -dsets           data/ss*.a.neg*.gz                                      \
-    -dsets           data/ss*.h.neg*.gz                                      \
-    -dsets           data/ss*.t.neg*.gz                                      \
-    -dsets           data/ss*.a.neut*.gz                                     \
-    -dsets           data/ss*.h.neut*.gz                                     \
-    -dsets           data/ss*.t.neut*.gz                                     \
-    -write_script    4.dt.txt
+# using -keep_dirent_pre for more complete subject IDs
+# (or use sub-XXXX dataset names)
+
+gen_group_command.py                            \
+      -command         datatable                \
+      -keep_dirent_pre                          \
+      -dt_factor_list  Affect Neg Neut          \
+      -dt_factor_list  Category A H T           \
+      -dsets           data/ss*.a.neg*.HEAD     \
+      -dsets           data/ss*.h.neg*.HEAD     \
+      -dsets           data/ss*.t.neg*.HEAD     \
+      -dsets           data/ss*.a.neut*.HEAD    \
+      -dsets           data/ss*.h.neut*.HEAD    \
+      -dsets           data/ss*.t.neut*.HEAD    \
+      -write_script    4.dt.txt
+
