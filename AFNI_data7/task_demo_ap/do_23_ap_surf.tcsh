@@ -28,7 +28,7 @@ afni_proc.py                                                                  \
     -tcat_remove_first_trs    2                                               \
     -align_unifize_epi        local                                           \
     -align_opts_aea           -cost lpc+ZZ                                    \
-                              -giant_move                                     \
+                              -large_move                                     \
                               -check_flip                                     \
     -volreg_align_to          MIN_OUTLIER                                     \
     -volreg_align_e2a                                                         \
