@@ -4,17 +4,19 @@
 # input stored in table hdr.tbl
 # predicted HDRs specified in hdrPred.tbl
 
-3dMSS -prefix result.MSS -jobs 2    \
-      -lme 'sex+s(TR)+s(TR,by=grp)' \
-      -ranEff 'list(Subj=~1)'        \
-      -sdiff   'grp'                \
-      -qVars 'sex,grp,TR'           \
-      -prediction @MSSpred.tbl      \
-      -dataTable  @MSS.tbl
+3dMSS                                                                        \
+    -prefix      result.MSS                                                  \
+    -jobs        2                                                           \
+    -lme         'sex+s(TR)+s(TR,by=grp)'                                    \
+    -ranEff      'list(Subj=~1)'                                             \
+    -sdiff       'grp'                                                       \
+    -qVars       'sex,grp,TR'                                                \
+    -prediction  @MSSpred.tbl                                                \
+    -dataTable   @MSS.tbl
 
-3dbucket -prefix CG-hdr result.MSS+tlrc'[7:95(2)]'
-3dbucket -prefix CG-hdr.se result.MSS+tlrc'[8:96(2)]'
-3dbucket -prefix PG-hdr result.MSS+tlrc'[97:185(2)]'
-3dbucket -prefix PG-hdr.se result.MSS+tlrc'[98:186(2)]'
-3dbucket -prefix Gdiff-hdr result.MSS+tlrc'[187:275(2)]'
+3dbucket -prefix CG-hdr       result.MSS+tlrc'[7:95(2)]'
+3dbucket -prefix CG-hdr.se    result.MSS+tlrc'[8:96(2)]'
+3dbucket -prefix PG-hdr       result.MSS+tlrc'[97:185(2)]'
+3dbucket -prefix PG-hdr.se    result.MSS+tlrc'[98:186(2)]'
+3dbucket -prefix Gdiff-hdr    result.MSS+tlrc'[187:275(2)]'
 3dbucket -prefix Gdiff-hdr.se result.MSS+tlrc'[188:276(2)]'
