@@ -15,7 +15,7 @@ afni_proc.py                                                                 \
     -volreg_align_to         MIN_OUTLIER                                     \
     -volreg_tlrc_warp                                                        \
     -volreg_align_e2a                                                        \
-    -regress_stim_times      $sid/AV*.txt                                    \
+    -regress_stim_times      $sid/AV?_???.txt                                \
     -regress_stim_labels     Vrel Arel                                       \
     -regress_basis           'BLOCK(20,1)'                                   \
     -regress_make_ideal_sum  sum_ideal.1D                                    \

@@ -8,7 +8,7 @@ afni_proc.py                                                                 \
     -dsets                   FT/FT_epi_r?+orig.HEAD                          \
     -copy_anat               FT/FT_anat+orig                                 \
     -tcat_remove_first_trs   2                                               \
-    -regress_stim_times      FT/AV*.txt                                      \
+    -regress_stim_times      FT/AV?_???.txt                                  \
     -regress_stim_labels     Vrel Arel                                       \
     -regress_basis           'BLOCK(20,1)'                                   \
     -regress_est_blur_errts                                                  \
