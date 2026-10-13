@@ -1,0 +1,69 @@
+
+To generate updated AFNI_demos/AFNI_pamenc data tree (for class):
+
+1. reprocess data (e.g. on biowulf)
+   - now have results under p001_ap_pamenc/data_23_task_NL
+   - as if p.3 had been run
+
+2. fully processed class tree
+   a. get subject list from old class/AFNI_02_pamenc dir (see below)
+   b. make new "full" class dir (with links to subject dirs)
+      - this should be in positional place of the old dir
+      - make links to 60 subject dirs
+      - run p.4 and p.5 scripts to generate QC and ttest results
+
+3. create new trimmed AFNI_02_pamenc tree
+   a. make new AFNI_02_pamenc
+   b. get all non-dset results (maybe also --exclude '*HEAD')
+      - exclude nii, BRIK, QC trees
+      rsync -avL --exclude '*.nii*' --exclude '*.BRIK*' --exclude 'QC_sub-*' \
+            ../../AFNI_02_pamenc .
+   c. get non var stats dsets
+      cd ../../AFNI_02_pamenc
+      cp -pv --parents sub*/*results/stats* ../class/AFNI_02_pamenc
+      cd ../class/AFNI_02_pamenc
+      rm sub*/*results/stats*var*
+   d. get QC trees for 12 subjects of interest
+      cd ../../AFNI_02_pamenc
+      cp -rp --parents sub*/*results/QC_sub-600[78]* ../class/AFNI_02_pamenc/
+      cd -
+   e. get non-tcat datasets from QC
+      rsync -av --exclude '*tcat*BRIK*' ../../AFNI_02_pamenc/QC/ QC/
+   f. get group_analysis dataset (just resync tree)
+      rsync -av group_analysis.* ../../AFNI_02_pamenc .
+   g. note size, now 661 M
+
+4. sync into new tree, including git
+   a. rsync -av .../afni_edu_scripts/AFNI_demos/AFNI_pamenc/AFNI_02_pamenc .
+   b. rsync -av reynoldr@helix.nih.gov:/data/NIMH_SSCC/rickr/UCLA.pamenc/AFNI/derivatives/class/AFNI_02_pamenc/ AFNI_02_pamenc/
+
+5. test
+   a. duplicate to test tree
+   b. 
+
+
+# subject list
+sub-10506  sub-10707  sub-10844  sub-10977  sub-60016  sub-60065  sub-60078
+sub-10517  sub-10708  sub-10855  sub-11062  sub-60017  sub-60066  sub-60079
+sub-10530  sub-10719  sub-10871  sub-11112  sub-60020  sub-60068  sub-60080
+sub-10557  sub-10724  sub-10877  sub-60005  sub-60022  sub-60070  sub-60084
+sub-10565  sub-10746  sub-10882  sub-60010  sub-60028  sub-60072  sub-60087
+sub-10570  sub-10762  sub-10891  sub-60011  sub-60033  sub-60073  sub-60089
+sub-10575  sub-10779  sub-10893  sub-60012  sub-60051  sub-60074
+sub-10680  sub-10785  sub-10934  sub-60014  sub-60060  sub-60076
+sub-10704  sub-10788  sub-10975  sub-60015  sub-60062  sub-60077
+
+# QC trees for 12 subjects (sub-600[78]*)
+sub-60070/sub-60070.results/QC_sub-60070
+sub-60072/sub-60072.results/QC_sub-60072
+sub-60073/sub-60073.results/QC_sub-60073
+sub-60074/sub-60074.results/QC_sub-60074
+sub-60076/sub-60076.results/QC_sub-60076
+sub-60077/sub-60077.results/QC_sub-60077
+sub-60078/sub-60078.results/QC_sub-60078
+sub-60079/sub-60079.results/QC_sub-60079
+sub-60080/sub-60080.results/QC_sub-60080
+sub-60084/sub-60084.results/QC_sub-60084
+sub-60087/sub-60087.results/QC_sub-60087
+sub-60089/sub-60089.results/QC_sub-60089
+
