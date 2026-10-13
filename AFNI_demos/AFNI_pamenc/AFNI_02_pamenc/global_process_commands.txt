@@ -8,8 +8,8 @@ cd AFNI_demos/AFNI_pamenc/AFNI_02_pamenc
 #   ** this subject gets dropped due to motion **
 
 cd sub-60078
-cat run.afni_proc.txt
-cat out.run.afni_proc.txt
+cat ap.cmd.sub-60078
+cat output.run_ap_sub-60078.txt
 afni_open -e proc.sub-60078
 
 ls -l sub-60078.results
@@ -17,6 +17,9 @@ cat sub-60078.results/out.ss_review*.txt
 open_apqc.py -infiles sub-60078.results/QC_sub-60078/index.html
 # alternative afni_open -b sub-60078.results/QC_sub-60078/index.html
 cd ..
+
+# consider looking at many subjects at once:
+open_apqc.py -find_infiles .
 
 # --------------------------------------------------
 # post-analysis QC and group prep
