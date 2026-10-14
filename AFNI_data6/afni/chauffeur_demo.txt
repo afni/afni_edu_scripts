@@ -1,0 +1,19 @@
+@chauffeur_afni                                                 \
+        -ulay               anat+orig.      \
+        -olay               func_slim+orig. \
+        -cbar               Reds_and_Blues_Inv                      \
+        -clusterize         "-NN 1 -clust_nvox 157"                 \
+        -func_range         3                                       \
+        -set_subbricks      -1 "Vrel#0_Coef"  "Vrel#0_Tstat"   \
+        -thr_olay_p2stat    0.001                                   \
+        -thr_olay_pside     bisided                                 \
+        -olay_alpha         Yes                                     \
+        -olay_boxed         Yes                                     \
+        -opacity            7                                       \
+        -prefix             img_e                                   \
+        -montx 3 -monty 3                                           \
+        -set_xhairs OFF                                             \
+        -label_mode 1 -label_size 4                                 \
+        -no_clean
+
+aiv img_e*.png

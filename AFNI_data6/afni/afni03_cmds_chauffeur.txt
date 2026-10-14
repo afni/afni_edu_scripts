@@ -1,0 +1,71 @@
+
+# A few examples of using @chauffeur_afni to drive the AFNI GUI and
+# save images in very flexible ways.  This script should be run in (or
+# from) the AFNI Bootcamp data directory: AFNI_data6/afni/.
+
+# Systematizing image views are
+# very helpful, for both data checks and publication figures.  See
+# more examples here:
+# https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/tutorials/auto_image/auto_%40chauffeur_afni.html
+
+# -------------------------------------------------------------------------------
+# Ex. 1: View ulay---use default montage params
+
+@chauffeur_afni                                                              \
+    -ulay             anat+orig.HEAD                                         \
+    -prefix           img_ex1
+
+echo "++ just open 1 of the 3 images: img_ex1.sag.png"
+aiv -q img_ex1.sag.png &
+
+
+# -------------------------------------------------------------------------------
+# Ex. 2: Show an ROI dataset over the anatomical, using crosshairs and
+# setting the montage center explicitly, along with slice spacing.
+
+@chauffeur_afni                                                              \
+    -ulay             anat+orig.HEAD                                         \
+    -olay             mask.left.vis.aud+orig.HEAD                            \
+    -cbar             ROI_i32                                                \
+    -func_range       32                                                     \
+    -pbar_posonly                                                            \
+    -montx            3                                                      \
+    -monty            1                                                      \
+    -set_xhairs       SINGLE                                                 \
+    -set_dicom_xyz    49.6 3.7 12.3                                          \
+    -delta_slices     5 5 5                                                  \
+    -label_mode       1                                                      \
+    -label_size       4                                                      \
+    -prefix           img_ex2
+
+echo "++ just open 1 of the 3 images: img_ex2.axi.png"
+aiv -q img_ex2.axi.png &
+
+
+# -------------------------------------------------------------------------------
+# Ex. 3: fancy stuff, like implementing clustering with alpha+boxed
+# transparency (and autoboxing based on masking olay).
+
+@chauffeur_afni                                                              \
+    -ulay             anat+orig.HEAD                                         \
+    -olay             func_slim+orig.HEAD                                    \
+    -box_focus_slices AMASK_FOCUS_OLAY                                       \
+    -cbar             Reds_and_Blues_Inv                                     \
+    -clusterize       "-NN 1 -clust_nvox 157"                                \
+    -func_range       3                                                      \
+    -set_subbricks    -1 "Vrel#0_Coef" "Vrel#0_Tstat"                        \
+    -thr_olay_p2stat  0.001                                                  \
+    -thr_olay_pside   bisided                                                \
+    -olay_alpha       Yes                                                    \
+    -olay_boxed       Yes                                                    \
+    -opacity          7                                                      \
+    -montx            5                                                      \
+    -monty            1                                                      \
+    -set_xhairs       OFF                                                    \
+    -label_mode       1                                                      \
+    -label_size       4                                                      \
+    -prefix           img_ex3
+
+echo "++ just open 1 of the 3 images: img_ex3.axi.png"
+aiv -q img_ex3.axi.png &
+

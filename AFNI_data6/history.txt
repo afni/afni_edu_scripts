@@ -1,3 +1,4 @@
+14 Oct 2026 [ptaylor]: copy afni_handouts/*chauff* to AFNI_data6/afni
 16 Apr 2026 [gangc]: add GroupAna_cases gen_group_command.py scripts
 14 Apr 2026 [rickr]: init GroupAna_cases/gen_datatables/all_result tree
 30 Jan 2026 [rickr]: rename GroupAna_cases results to save.*
